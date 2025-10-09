@@ -405,6 +405,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "ripflux-server"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "tokio",
+]
+
+[[package]]
 name = "rustc-demangle"
 version = "0.1.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -485,14 +493,6 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
-]
-
-[[package]]
-name = "server"
-version = "0.1.0"
-dependencies = [
- "axum",
- "tokio",
 ]
 
 [[package]]
