@@ -8,7 +8,7 @@ async fn main() {
     let app = Router::new().route("/", get(root));
 
     // bind to address
-    let addr = SocketAddr::from(([127, 0, 0, 1], 4000));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let listener = TcpListener::bind(addr).await.unwrap();
     println!("🚀 Server running at http://{}", addr);
 
@@ -17,5 +17,6 @@ async fn main() {
 }
 
 async fn root() -> &'static str {
-    "Ripflux Axum backend (v0.8) is running!"
+    "Ripflux Axum backend (v0.8) is running V4! And this is ruiing mildly nice"
+    
 }
