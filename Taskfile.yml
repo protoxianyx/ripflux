@@ -1,0 +1,38 @@
+# https://taskfile.dev
+
+version: '3'
+
+
+
+tasks:
+  
+  default:
+    desc: Run all dev servers (Next.js, Rust, Go)
+    cmds:
+      - task: dev
+    run: when_changed
+
+
+
+  dev:
+    desc: Run the servers
+    # run: when_changed
+    deps: [client, rust, go]
+        
+
+  client:
+    dir: client/
+    cmds:
+      - bun run dev
+  
+  rust:
+    dir: server/rust/
+    cmds:
+      - cargo watch -x run
+
+  go:
+    dir: server/go/
+    cmds:
+      - go run .
+      
+

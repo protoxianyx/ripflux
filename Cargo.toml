@@ -2,3 +2,5 @@
 members = [
     "server/rust/"
 ]
+
+resolver = "1"
