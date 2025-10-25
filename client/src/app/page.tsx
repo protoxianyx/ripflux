@@ -6,37 +6,45 @@ import { Separator } from "@/components/ui/separator";
 import React, { useRef, useState } from "react";
 
 const App = () => {
+  interface JSON_Data {
+    inputValue: string;
+  }
+
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const [jsonData, setJsonData] = useState<object | null>(null);
+  const [jsonData, setJsonData] = useState<JSON_Data | null>(null);
   const [normaldata, setNormalData] = useState<string>("");
 
   const handleInput = () => {
     const value = inputRef.current?.value || "";
-    const data = { inputValue: value };
+    const data: JSON_Data = { inputValue: value };
     setJsonData(data);
     setNormalData(value);
   };
 
-  const parseJSON = (dataBlock: object | null) => {
+  const parseJSON = (dataBlock: JSON_Data | null) => {
     if (dataBlock == null) {
       console.log("NULL");
       return null;
     }
-    const data = JSON.stringify(dataBlock, null, 2);
-    const parsedData = {
-      parsed: data
-    }
 
-    console.log(`DataBlock: ${dataBlock} \n Data: ${data} \n`);
+    const jsonData: object = {
+      jsonInputValue: dataBlock.inputValue,
+    };
+    const data = JSON.stringify(jsonData);
+    const parsedData = {
+      parsed: dataBlock.inputValue,
+      json: data,
+    };
+
+    console.log(`DataBlock: ${dataBlock} \nData: ${data} \n`);
     return parsedData;
   };
 
   const parsedData = () => {
-    const data = parseJSON(jsonData)
-    console.log("Parsed DAta: ", data)
-    
-  }
+    const data = parseJSON(jsonData);
+    console.log("Parsed DAta: ", data);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
@@ -62,9 +70,9 @@ const App = () => {
       <Separator />
       <div>
         <p>Continious Input Value: {inputValue}</p>
-        <p>JSON Data: {parseJSON(jsonData)?.parsed}</p>
+        <p>JSON Data: {parseJSON(jsonData)?.json}</p>
         <p>Data: {normaldata} </p>
-        <p>Parsed Data:  { }</p>
+        <p>Parsed Data: {parseJSON(jsonData)?.parsed}</p>
       </div>
     </div>
   );
