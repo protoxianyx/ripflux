@@ -22,8 +22,10 @@ tasks:
 
   client:
     dir: client/
+    # run: when_changed
     cmds:
       - bun run dev
+      
   
   rust:
     dir: server/rust/
