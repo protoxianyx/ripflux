@@ -13,14 +13,6 @@ const App = () => {
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const [jsonData, setJsonData] = useState<JSON_Data | null>(null);
-  const [normaldata, setNormalData] = useState<string>("");
-
-  const handleInput = () => {
-    const value = inputRef.current?.value || "";
-    const data: JSON_Data = { inputValue: value };
-    setJsonData(data);
-    setNormalData(value);
-  };
 
   const parseJSON = (dataBlock: JSON_Data | null) => {
     if (dataBlock == null) {
@@ -31,7 +23,8 @@ const App = () => {
     const jsonData: object = {
       jsonInputValue: dataBlock.inputValue,
     };
-    const data = JSON.stringify(jsonData);
+    const data = JSON.stringify(jsonData, null, 2);
+
     const parsedData = {
       parsed: dataBlock.inputValue,
       json: data,
@@ -41,20 +34,32 @@ const App = () => {
     return parsedData;
   };
 
-  const parsedData = () => {
-    const data = parseJSON(jsonData);
-    console.log("Parsed DAta: ", data);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
       handleInput();
     }
   };
 
+  const sendData = async () => {
+    await fetch("http://localhost:8080/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: parseJSON(jsonData)?.parsed }),
+    });
+  };
+
+  const handleInput = () => {
+    const value = inputRef.current?.value || "";
+    const data: JSON_Data = { inputValue: value };
+    setJsonData(data);
+    sendData();
+  };
+
   return (
     <div>
-      <div>
+      <div className="flex border-0  border-black m-2">
         <Input
           type="url"
           ref={inputRef}
@@ -64,14 +69,22 @@ const App = () => {
             const inputData = e.currentTarget.value;
             setInputValue(inputData);
           }}
+          className="m-1"
         />
-        <Button onClick={handleInput}>Enter</Button>
+        <Button
+          onClick={() => {
+            handleInput;
+            // sendData;
+          }}
+          className="m-1"
+        >
+          Enter
+        </Button>
       </div>
       <Separator />
       <div>
         <p>Continious Input Value: {inputValue}</p>
         <p>JSON Data: {parseJSON(jsonData)?.json}</p>
-        <p>Data: {normaldata} </p>
         <p>Parsed Data: {parseJSON(jsonData)?.parsed}</p>
       </div>
     </div>
