@@ -21,7 +21,7 @@ tasks:
         
 
   client:
-    dir: client/
+    dir: frontend/
     # run: when_changed
     cmds:
       - bun run dev
@@ -33,7 +33,7 @@ tasks:
       - cargo watch -x run
 
   go:
-    dir: server/go/
+    dir: backend/go/
     cmds:
       - go run .
       

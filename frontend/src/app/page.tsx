@@ -3,42 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const App = () => {
-  interface JSON_Data {
+  interface JSONDataObject {
     inputValue: string;
   }
 
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [jsonData, setJsonData] = useState<JSON_Data | null>(null);
-
-  const parseJSON = (dataBlock: JSON_Data | null) => {
-    if (dataBlock == null) {
-      console.log("NULL");
-      return null;
-    }
-
-    const jsonData: object = {
-      jsonInputValue: dataBlock.inputValue,
-    };
-    const data = JSON.stringify(jsonData, null, 2);
-
-    const parsedData = {
-      parsed: dataBlock.inputValue,
-      json: data,
-    };
-
-    console.log(`DataBlock: ${dataBlock} \nData: ${data} \n`);
-    return parsedData;
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key == "Enter") {
-      handleInput();
-    }
-  };
+  const [inputValue, setInputValue] = useState<string>("");
+  const [jsonData, setJsonData] = useState<JSONDataObject>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const sendData = async () => {
     await fetch("http://localhost:8080/api/send", {
@@ -46,46 +20,48 @@ const App = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text: parseJSON(jsonData)?.parsed }),
+      body: JSON.stringify(jsonData),
     });
+    console.log("data sent")
   };
 
-  const handleInput = () => {
-    const value = inputRef.current?.value || "";
-    const data: JSON_Data = { inputValue: value };
+  const handleSubmit = () => {
+    const inputData = inputRef.current?.value || "";
+    const data: JSONDataObject = { inputValue: inputData };
     setJsonData(data);
-    sendData();
+  };
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+      sendData()
+    }
   };
 
   return (
     <div>
       <div className="flex border-0  border-black m-2">
         <Input
-          type="url"
-          ref={inputRef}
-          placeholder="input"
-          onKeyDown={handleKeyDown}
+          className="m-1"
           onInput={(e) => {
-            const inputData = e.currentTarget.value;
-            setInputValue(inputData);
+            setInputValue(e.currentTarget.value);
           }}
-          className="m-1"
+          onKeyUp={handleKeyUp}
+          ref={inputRef}
         />
-        <Button
-          onClick={() => {
-            handleInput;
-            // sendData;
-          }}
-          className="m-1"
-        >
+        <Button className="m-1" onClick={() => {
+          handleSubmit()
+          sendData()
+        }}>
           Enter
         </Button>
       </div>
       <Separator />
       <div>
-        <p>Continious Input Value: {inputValue}</p>
-        <p>JSON Data: {parseJSON(jsonData)?.json}</p>
-        <p>Parsed Data: {parseJSON(jsonData)?.parsed}</p>
+        <p>Input Value as we type:{inputValue} </p>
+        <p>Input Value:{JSON.stringify(jsonData)} </p>
+        <p>JSON: </p>
+        <p>JSON Data: {jsonData?.inputValue} </p>
       </div>
     </div>
   );
