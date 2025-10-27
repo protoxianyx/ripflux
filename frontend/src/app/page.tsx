@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useRef, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const App = () => {
   interface JSONDataObject {
@@ -22,7 +29,7 @@ const App = () => {
       },
       body: JSON.stringify(jsonData),
     });
-    console.log("data sent")
+    console.log("data sent");
   };
 
   const handleSubmit = () => {
@@ -34,7 +41,7 @@ const App = () => {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSubmit();
-      sendData()
+      sendData();
     }
   };
 
@@ -49,10 +56,23 @@ const App = () => {
           onKeyUp={handleKeyUp}
           ref={inputRef}
         />
-        <Button className="m-1" onClick={() => {
-          handleSubmit()
-          sendData()
-        }}>
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Quality" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="light">Select 1</SelectItem>
+            <SelectItem value="dark">Seleect 2</SelectItem>
+            <SelectItem value="system">Select 3</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button
+          className="m-1"
+          onClick={() => {
+            handleSubmit();
+            sendData();
+          }}
+        >
           Enter
         </Button>
       </div>
