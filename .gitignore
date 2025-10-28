@@ -1,6 +1,7 @@
 server/target/*
 target/
 
-bin/
+bin/*
+!bin/.gitkeep
 
 *.env
