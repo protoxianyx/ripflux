@@ -4,13 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useRef, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import Selector from "@/components/base/selector";
 
 const App = () => {
   interface JSONDataObject {
@@ -20,16 +14,19 @@ const App = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [jsonData, setJsonData] = useState<JSONDataObject>();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [response, setResponse] = useState("");
 
-  const sendData = async () => {
-    await fetch("http://localhost:8080/api/send", {
+  const sendToBackend = async () => {
+    const inputData = inputRef.current?.value || "";
+
+    const res = await fetch("http://localhost:8080/api/send", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonData),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: inputData }),
     });
-    console.log("data sent");
+
+    const data = await res.json();
+    setResponse(data.recieved);
   };
 
   const handleSubmit = () => {
@@ -40,8 +37,9 @@ const App = () => {
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      sendToBackend();
       handleSubmit();
-      sendData();
+      // sendData();
     }
   };
 
@@ -56,21 +54,13 @@ const App = () => {
           onKeyUp={handleKeyUp}
           ref={inputRef}
         />
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Quality" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">Select 1</SelectItem>
-            <SelectItem value="dark">Seleect 2</SelectItem>
-            <SelectItem value="system">Select 3</SelectItem>
-          </SelectContent>
-        </Select>
+        <Selector />
         <Button
           className="m-1"
           onClick={() => {
             handleSubmit();
-            sendData();
+            // sendData();
+            sendToBackend();
           }}
         >
           Enter
@@ -80,7 +70,7 @@ const App = () => {
       <div>
         <p>Input Value as we type:{inputValue} </p>
         <p>Input Value:{JSON.stringify(jsonData)} </p>
-        <p>JSON: </p>
+        <p>Server: {response} </p>
         <p>JSON Data: {jsonData?.inputValue} </p>
       </div>
     </div>
