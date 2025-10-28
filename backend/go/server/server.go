@@ -1,9 +1,11 @@
 package server
 
 import (
-    "fmt"
-    "github.com/gin-contrib/cors"
-    "github.com/gin-gonic/gin"
+	"fmt"
+	"ripflux-server/internal/execpass"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 type Input struct {
@@ -27,6 +29,7 @@ func Server(){
             c.JSON(400, gin.H{"error": "invalid JSON"})
             return
         }
+        execpass.ExecPass(input.Text)
 
         fmt.Println("Received from frontend:", input.Text)
         c.JSON(200, gin.H{"message": "Got it!", "received": input.Text})
