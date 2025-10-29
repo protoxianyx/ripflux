@@ -4,4 +4,7 @@ target/
 bin/*
 !bin/.gitkeep
 
+download/*
+!download/.gitkeep
+
 *.env
