@@ -1,3 +1,17 @@
 {
-//   "rust-analyzer.linkedProjects": ["server/rust/Cargo.toml"]
+  "typescript.validate.enable": true,
+  "javascript.validate.enable": true,
+  "[markdown]": {
+    // "editor.quickSuggestions": false,
+    "editor.suggest.showSnippets": false
+  },
+  "files.associations": {
+    "*.md": "markdown"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
 }
