@@ -14,5 +14,12 @@
     "typescript",
     "typescriptreact"
   ],
-  "python-envs.defaultEnvManager": "ms-python.python:system"
+  "python-envs.defaultEnvManager": "ms-python.python:system",
+  "cSpell.words": [
+    "coreinstaller",
+    "fetchig",
+    "packageupdater",
+    "ripflux",
+    "ytdlp"
+  ]
 }

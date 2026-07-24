@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io"
 	"os"
+	"path/filepath"
+	"ripflux/config"
 
 	"fmt"
 
@@ -11,11 +13,6 @@ import (
 	"net/http"
 )
 
-const (
-    BinDir string = "../bin"
-    YTDLPExe string = "yt-dlp.exe"
-    YTDLPPath string = "../bin/yt-dlp.exe"
-)
 
 type Release struct {
 	TagName string  `json:"tag_name"`
@@ -57,7 +54,7 @@ func getLatestRelease() string {
 
 	for _, asset := range release.Assets {
 
-        if asset.Name == YTDLPExe {
+        if asset.Name == config.YTDLPExe {
             downloadURL = asset.BrowserDownloadURL
             break
         }
@@ -76,7 +73,8 @@ func downloadFile(downloadURL string) {
 	}
 	defer resp.Body.Close()
 
-    file, err := os.Create(YTDLPPath)
+    ytdlp_path := filepath.Join(config.BinDir, config.YTDLPExe)
+    file, err := os.Create(ytdlp_path)
     if err != nil {
         return 
     }

@@ -3,9 +3,9 @@ package main
 import (
     // "log"
 
-    "ripflux/utils/coreinstaller"
+    // "ripflux/utils/coreinstaller"
 )
 
 func main() {
-    coreinstaller.Install()
+    // coreinstaller.Install()
 }
