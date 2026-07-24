@@ -2,10 +2,19 @@ package coreinstaller
 
 import (
 	"encoding/json"
+	"io"
+	"os"
+
 	"fmt"
 
 	// "io"
 	"net/http"
+)
+
+const (
+    BinDir string = "../bin"
+    YTDLPExe string = "yt-dlp.exe"
+    YTDLPPath string = "../bin/yt-dlp.exe"
 )
 
 type Release struct {
@@ -20,6 +29,15 @@ type Asset struct {
 
 func Install() {
 
+    downloadURL := getLatestRelease()
+
+    fmt.Println(downloadURL)
+    downloadFile(downloadURL)
+
+}
+
+func getLatestRelease() string {
+
 	var ytdlp_release string = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest"
     var downloadURL string
 
@@ -33,17 +51,40 @@ func Install() {
 
 	err = json.NewDecoder(resp.Body).Decode(&release)
 	if err != nil {
-		return
+		panic(err)
 	}
 
 
 	for _, asset := range release.Assets {
 
-        if asset.Name == "yt-dlp.exe" {
+        if asset.Name == YTDLPExe {
             downloadURL = asset.BrowserDownloadURL
             break
         }
 	}
 
-    fmt.Println(downloadURL)
+    return downloadURL
+}
+
+func downloadFile(downloadURL string) {
+
+    // fmt.Println(downloadURL)
+
+    resp, err := http.Get(downloadURL)
+    	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+    file, err := os.Create(YTDLPPath)
+    if err != nil {
+        return 
+    }
+    defer file.Close()
+
+    bytesWritten, err := io.Copy(file, resp.Body)
+
+    fmt.Println("Downloaded", bytesWritten, "bytes")
+
+
 }

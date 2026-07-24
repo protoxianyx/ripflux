@@ -1,1 +1,0 @@
-This is just a wrapper around yt-dlp mainly focused for learning about building applications.
