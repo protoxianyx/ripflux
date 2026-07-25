@@ -54,7 +54,7 @@ func getLatestRelease() string {
 
 	for _, asset := range release.Assets {
 
-        if asset.Name == config.YTDLPExe {
+        if asset.Name == config.YTDLP_EXE {
             downloadURL = asset.BrowserDownloadURL
             break
         }
@@ -73,7 +73,7 @@ func downloadFile(downloadURL string) {
 	}
 	defer resp.Body.Close()
 
-    ytdlp_path := filepath.Join(config.BinDir, config.YTDLPExe)
+    ytdlp_path := filepath.Join(config.BIN_DIR, config.YTDLP_EXE)
     file, err := os.Create(ytdlp_path)
     if err != nil {
         return 
@@ -83,6 +83,4 @@ func downloadFile(downloadURL string) {
     bytesWritten, err := io.Copy(file, resp.Body)
 
     fmt.Println("Downloaded", bytesWritten, "bytes")
-
-
 }

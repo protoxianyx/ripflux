@@ -1,11 +1,14 @@
 package main
 
-import (
-    // "log"
+import "ripflux/utils/adapters"
 
-    // "ripflux/utils/coreinstaller"
-)
+// "log"
+
+// "ripflux/utils/coreinstaller"
 
 func main() {
     // coreinstaller.Install()
+
+    adapters.GetVersion()
+    
 }
