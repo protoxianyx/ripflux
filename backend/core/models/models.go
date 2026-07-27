@@ -1,7 +1,7 @@
 package models
 
 type DownloadRequest struct {
-	URL        string
+	URL        string `json:"url"`
 	Type       string
 	Resolution string
 }

@@ -11,6 +11,6 @@ tasks:
     dir: "{{.BACKEND_DIRECTORY}}"
     cmds:
       - go run .
-  gitadd:
+  add:
     cmds:
       - git add .

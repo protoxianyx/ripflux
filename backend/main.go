@@ -1,9 +1,12 @@
 package main
 
 import (
+	// "encoding/json"
 	"fmt"
 	"ripflux/core"
-	"ripflux/core/models"
+	"ripflux/tests"
+
+	// "ripflux/core/models"
 	"ripflux/utils/adapters"
 )
 
@@ -16,14 +19,14 @@ func main() {
 
 	adapters.GetVersion()
 
-	req := models.DownloadRequest{
-		URL:        "https://youtu.be/...",
-		Type:       "video",
-		Resolution: "1070",
-	}
+	// req := models.DownloadRequest{
+	// 	URL:        "https://youtu.be/...",
+	// 	Type:       "video",
+	// 	Resolution: "1070",
+	// }
 
-    args:= core.BuildArgs(req)
+	args := core.BuildArgs(json_tests.Json_test())
 
-    fmt.Println(args)
+	fmt.Println(args)
 
 }
