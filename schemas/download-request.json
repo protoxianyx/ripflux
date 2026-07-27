@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "audioOnly": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "url",
+    "format",
+    "audioOnly"
+  ]
+}

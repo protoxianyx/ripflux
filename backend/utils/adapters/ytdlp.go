@@ -4,13 +4,18 @@ import (
 	"fmt"
 	"os/exec"
 	"path/filepath"
+
 	"ripflux/config"
 	"ripflux/config/commands"
+	// "ripflux/core"
+	// "ripflux/core/models"
 )
 
-func GetVersion() {
-	YTDLP := filepath.Join(config.BIN_DIR, config.YTDLP_EXE)
 
+var YTDLP string = filepath.Join(config.BIN_DIR, config.YTDLP_EXE)
+
+func GetVersion() {
+	
 	cmd := exec.Command(YTDLP, commands.VERSION)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
@@ -18,4 +23,9 @@ func GetVersion() {
 	}
 
 	fmt.Println(string(output))
+}
+
+func Run() {
+	
+	fmt.Println()
 }

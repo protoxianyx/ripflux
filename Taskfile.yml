@@ -1,0 +1,16 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  BACKEND_DIRECTORY: /backend
+  # PROGRAM: ./backend/main.go
+
+tasks:
+  default:
+    dir: "{{.BACKEND_DIRECTORY}}"
+    cmds:
+      - go run .
+  gitadd:
+    cmds:
+      - git add .
