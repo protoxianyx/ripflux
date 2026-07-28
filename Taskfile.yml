@@ -4,6 +4,7 @@ version: "3"
 
 vars:
   BACKEND_DIRECTORY: /backend
+  FRONTEND_DIRECTORY: /frontend
   # PROGRAM: ./backend/main.go
 
 tasks:
@@ -14,3 +15,9 @@ tasks:
   add:
     cmds:
       - git add .
+  frontend:
+    dir: "{{.FRONTEND_DIRECTORY}}"
+    
+    
+  
+
