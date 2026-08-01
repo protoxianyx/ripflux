@@ -8,7 +8,7 @@ import (
 func BuildArgs(req models.DownloadRequest) []string {
 	args := []string{}
 
-	switch req.Type {
+	switch req.Format {
 	case "video":
 		args = append(args, "-f")
 

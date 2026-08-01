@@ -7,6 +7,17 @@ import {
 } from "@/components/ui/select";
 import { Button } from "./ui/button";
 
+import { startDownload } from "@/api/download"
+
+
+async function handleDownload() {
+  await startDownload({
+    url: "https://youtu.be/dQw4w9WgXcQ",
+    format: "Video",
+    resolution: "1080",
+  })
+}
+
 export default function DownloadForm() {
     return (
       <div className="flex items-center gap-4">
@@ -35,7 +46,7 @@ export default function DownloadForm() {
           </SelectContent>
         </Select>
 
-        <Button className="ml-auto px-8">Download</Button>
+        <Button className="ml-auto px-8" onClick={handleDownload}>Download</Button>
       </div>
     )
 }

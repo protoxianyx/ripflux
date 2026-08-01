@@ -8,7 +8,12 @@ vars:
   # PROGRAM: ./backend/main.go
 
 tasks:
+
   default:
+      cmds:
+        - task backend
+        - task frontend
+  backend:
     dir: "{{.BACKEND_DIRECTORY}}"
     cmds:
       - go run .
@@ -17,6 +22,8 @@ tasks:
       - git add .
   frontend:
     dir: "{{.FRONTEND_DIRECTORY}}"
+    cmds:
+      - bun run dev
     
     
   

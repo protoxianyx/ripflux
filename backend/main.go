@@ -4,6 +4,7 @@ import (
 	// "encoding/json"
 	"fmt"
 	"ripflux/core"
+	"ripflux/core/server"
 	"ripflux/tests"
 
 	// "ripflux/core/models"
@@ -17,6 +18,8 @@ import (
 func main() {
 	// coreinstaller.Install()
 
+	server.ServerStart()
+
 	adapters.GetVersion()
 
 	// req := models.DownloadRequest{
@@ -28,5 +31,7 @@ func main() {
 	args := core.BuildArgs(json_tests.Json_test())
 
 	fmt.Println(args)
+
+
 
 }
