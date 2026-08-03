@@ -3,6 +3,7 @@ import Layout from "@/layouts/main.astro"
 // import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import DownloadForm from "@/components/DownloadForm"
+import InputForm from "@/components/InputForm"
 ---
 
 <Layout>
@@ -11,13 +12,8 @@ import DownloadForm from "@/components/DownloadForm"
   >
     <div class="w-full max-w-3xl space-y-6">
       <h1 class="text-center text-5xl font-bold">RIPFLUX</h1>
-      <Input
-        placeholder="Paste a YouTube URL..."
-        className="h-14 rounded-md px-5 text-lg shadow-lg"
-      />
-      <div data-name="Download">
-        <DownloadForm client:load />
-      </div>
+
+      <DownloadForm client:load />
     </div>
   </main>
 </Layout>
