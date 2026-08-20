@@ -1,6 +1,6 @@
 package models
 
-type DownloadRequest struct {
+type DownloadRequestModel struct {
     URL        string `json:"url"`
     Format     string `json:"format"`
     Resolution string `json:"resolution"`

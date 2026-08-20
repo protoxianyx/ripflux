@@ -10,14 +10,23 @@ import { Button } from "./ui/button"
 import { startDownload } from "@/api/download"
 import { useState } from "react"
 import { Input } from "./ui/input"
+import InvalidPopUp from "./InvalidPopUp"
 
 export default function DownloadForm() {
   const [url, setUrl] = useState(" ")
-  const [format, setFormat] = useState<"Video" | "Audio">("Video")
-  const [resolution, setResolution] = useState(" ")
+  const [format, setFormat] = useState<"Video" | "Audio" | "Format">("Format")
+  const [resolution, setResolution] = useState("Resolution")
+  const [showInvalidPopup, setShowInvalidPopup] = useState(false)
 
   async function handleDownload() {
-
+    if (
+      format === "Format" ||
+      resolution === "Resolution" ||
+      url.trim() === ""
+    ) {
+      setShowInvalidPopup(true)
+      return
+    }
 
     await startDownload({
       url,
@@ -37,7 +46,10 @@ export default function DownloadForm() {
         />
       </div>
       <div className="flex items-center gap-4">
-        <Select value={format} onValueChange={(value) => value && setFormat(value)}>
+        <Select
+          value={format}
+          onValueChange={(value) => value && setFormat(value)}
+        >
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Format" />
           </SelectTrigger>
@@ -69,6 +81,11 @@ export default function DownloadForm() {
           Download
         </Button>
       </div>
+
+      <InvalidPopUp
+        open={showInvalidPopup}
+        onOpenChange={setShowInvalidPopup}
+      />
     </div>
   )
 }

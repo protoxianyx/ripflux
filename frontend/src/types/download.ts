@@ -1,5 +1,5 @@
 export interface DownloadRequest {
   url: string
-  format: "Video" | "Audio"
+  format: "Video" | "Audio" | "Format"
   resolution: string
 }

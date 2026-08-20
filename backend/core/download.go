@@ -3,9 +3,10 @@ package core
 import (
 	"ripflux/config/errors"
 	"ripflux/core/models"
+	"ripflux/utils/adapters"
 )
 
-func BuildArgs(req models.DownloadRequest) []string {
+func BuildArgs(req models.DownloadRequestModel) []string {
 	args := []string{}
 
 	switch req.Format {
@@ -28,5 +29,12 @@ func BuildArgs(req models.DownloadRequest) []string {
 			"mp3")
 	}
 
+
 	return args
 }
+
+func Downloader(args []string) {
+	adapters.Download(args)
+
+}
+

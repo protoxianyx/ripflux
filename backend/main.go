@@ -17,10 +17,10 @@ import (
 
 func main() {
 	// coreinstaller.Install()
-
+	
+	adapters.GetVersion()
 	server.ServerStart()
 
-	adapters.GetVersion()
 
 	// req := models.DownloadRequest{
 	// 	URL:        "https://youtu.be/...",
@@ -29,10 +29,10 @@ func main() {
 	// }
 
 	args := core.BuildArgs(json_tests.Json_test())
+	processedArgs := fmt.Sprintf("%+v", args)
 
-	fmt.Println(args)
+	fmt.Printf("This is the way to go: %s", processedArgs)
+	fmt.Println("This part shouldn't be reached")
 	
-
-
 
 }

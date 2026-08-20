@@ -2,7 +2,9 @@ package server
 
 import (
 	"fmt"
+	// "go/format"
 	"ripflux/core/models"
+	// "ripflux/utils/adapters"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -11,7 +13,7 @@ import (
 
 
 func downloadHandler(c *gin.Context) {
-    var req models.DownloadRequest
+    var req models.DownloadRequestModel
 
     if err := c.ShouldBindJSON(&req); err != nil {
         c.JSON(400, gin.H{
@@ -20,11 +22,15 @@ func downloadHandler(c *gin.Context) {
         return
     }
 
-	fmt.Printf("%+v\n", req)
+	// fmt.Printf("%+v\n", req)
+
+    InputDataSend(req)
 
     c.JSON(200, gin.H{
         "status": "ok",
     })
+
+    
 }
 
 func ServerStart() {
@@ -37,3 +43,13 @@ func ServerStart() {
 
     router.Run(":8080")
 }
+
+func InputDataSend(submittedRequestData models.DownloadRequestModel)  {
+    
+
+    VidoeFormat := submittedRequestData.URL
+    fmt.Printf("This is the format %s\n", VidoeFormat)
+
+    // return VidoeFormat
+}
+

@@ -5,6 +5,7 @@ version: "3"
 vars:
   BACKEND_DIRECTORY: /backend
   FRONTEND_DIRECTORY: /frontend
+  HELLO_VAR: HELLO_TO_THE_TERMINAL
   # PROGRAM: ./backend/main.go
 
 tasks:
@@ -27,3 +28,6 @@ tasks:
     dir: "{{.BACKEND_DIRECTORY}}"
     cmds:
       - air
+  test:
+    cmds:
+      - echo "{{.HELLO_VAR}}"

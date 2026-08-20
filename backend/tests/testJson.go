@@ -11,7 +11,7 @@ import (
 	"ripflux/core/models"
 )
 
-func Json_test() models.DownloadRequest {
+func Json_test() models.DownloadRequestModel {
 
 	data, err := os.Open(config.TEST_DATA)
 	if err != nil {
@@ -20,7 +20,7 @@ func Json_test() models.DownloadRequest {
 	}
 	defer data.Close()
 
-	var req models.DownloadRequest
+	var req models.DownloadRequestModel
 
 	err = json.NewDecoder(data).Decode(&req)
 

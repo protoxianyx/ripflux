@@ -22,10 +22,16 @@ func GetVersion() {
 		panic(err)
 	}
 
-	fmt.Println(string(output))
+	fmt.Printf("The version of ytdlp: %s\n", string(output))
 }
 
 func Run() {
 	
 	fmt.Println()
+}
+
+func Download(args []string) {
+	// cmd := exec.Command(YTDLP, )
+
+	fmt.Println(args)
 }
