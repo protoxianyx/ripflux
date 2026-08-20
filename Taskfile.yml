@@ -30,4 +30,4 @@ tasks:
       - air
   test:
     cmds:
-      - echo "{{.HELLO_VAR}}"
+      - echo "{{.HELLO_VAR}} hello hello"
