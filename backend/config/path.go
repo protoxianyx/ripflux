@@ -7,6 +7,9 @@ const (
 
 
     TEST_DATA string = "tests/data.json"
+
+    LOG_FOLDER string = "../logs"
+    BACKEND_LOG_FILE string = "../logs/backend.log"
 	
     // YTDLPPath string = "../bin/yt-dlp.exe"
 )

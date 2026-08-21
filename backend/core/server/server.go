@@ -4,6 +4,7 @@ import (
 	"fmt"
 	// "go/format"
 	"ripflux/core/models"
+	"ripflux/utils/loggers"
 	// "ripflux/utils/adapters"
 
 	"github.com/gin-contrib/cors"
@@ -49,6 +50,7 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel)  {
 
     VidoeFormat := submittedRequestData.URL
     fmt.Printf("This is the URL: %s\n", VidoeFormat)
+    loggers.Logf("This is the URL: %s", VidoeFormat)
 
     // return VidoeFormat
 }
