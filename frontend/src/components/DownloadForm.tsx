@@ -13,10 +13,30 @@ import { Input } from "./ui/input"
 import InvalidPopUp from "./InvalidPopUp"
 
 export default function DownloadForm() {
-  const [url, setUrl] = useState(" ")
+  const [url, setUrl] = useState("")
   const [format, setFormat] = useState<"Video" | "Audio" | "Format">("Format")
   const [resolution, setResolution] = useState("Resolution")
   const [showInvalidPopup, setShowInvalidPopup] = useState(false)
+
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+    void handleDownload()
+  }
+
+  function handleDefaultDownload() {
+    const defaultFormat = "Video"
+    const defaultResolution = "1080"
+
+    setFormat(defaultFormat)
+    setResolution(defaultResolution)
+    setShowInvalidPopup(false)
+    
+    void startDownload({
+      url,
+      format: defaultFormat,
+      resolution: defaultResolution,
+    })
+  }
 
   async function handleDownload() {
     if (
@@ -36,7 +56,7 @@ export default function DownloadForm() {
   }
 
   return (
-    <div className="w-full max-w-3xl space-y-6">
+    <form onSubmit={handleSubmit} className="w-full max-w-3xl space-y-6">
       <div>
         <Input
           value={url}
@@ -77,7 +97,7 @@ export default function DownloadForm() {
           </SelectContent>
         </Select>
 
-        <Button className="ml-auto px-8" onClick={handleDownload}>
+        <Button className="ml-auto px-8" type="submit">
           Download
         </Button>
       </div>
@@ -85,7 +105,9 @@ export default function DownloadForm() {
       <InvalidPopUp
         open={showInvalidPopup}
         onOpenChange={setShowInvalidPopup}
+        onUseDefaults={handleDefaultDownload}
+        
       />
-    </div>
+    </form>
   )
 }

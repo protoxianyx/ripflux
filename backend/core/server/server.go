@@ -48,7 +48,7 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel)  {
     
 
     VidoeFormat := submittedRequestData.URL
-    fmt.Printf("This is the format %s\n", VidoeFormat)
+    fmt.Printf("This is the URL: %s\n", VidoeFormat)
 
     // return VidoeFormat
 }
