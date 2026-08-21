@@ -42,8 +42,8 @@ func Log(v ...any) {
 		header := fmt.Sprintf("\n========================= LOG SEGMENT: %s =========================\n", now.Format("Monday, 02 Jan 2006"))
 		io.WriteString(logFile, header)
 
-		baseLogger.Println(v...)
 	}
+	baseLogger.Println(v...)
 
 }
 
