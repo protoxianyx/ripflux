@@ -1,6 +1,5 @@
 {
-  "typescript.validate.enable": true,
-  "javascript.validate.enable": true,
+  "js/ts.validate.enabled": true,
   "[markdown]": {
     // "editor.quickSuggestions": false,
     "editor.suggest.showSnippets": false

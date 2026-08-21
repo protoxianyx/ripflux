@@ -1,0 +1,59 @@
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:57:11 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:57:59 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:58:09 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:58:13 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:58:18 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:58:30 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:58:39 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+02:59:02 The version of YTDLP: 2026.07.04
+
+
+
+========================= LOG SEGMENT: Saturday, 22 Aug 2026 =========================
+03:09:21 This is the URL: https://youtu.be/azSYS5WDJLQ?si=hVWBs4cLFvTn-D9k
+03:09:21 [https://youtu.be/azSYS5WDJLQ?si=hVWBs4cLFvTn-D9k -f bestvideo[height<=1080]+bestaudio --output ..\tmp\%(title)s.%(ext)s]
+03:09:21 Number of args: 5
+
+03:09:21 args[0]: https://youtu.be/azSYS5WDJLQ?si=hVWBs4cLFvTn-D9k
+
+03:09:21 args[1]: -f
+
+03:09:21 args[2]: bestvideo[height<=1080]+bestaudio
+
+03:09:21 args[3]: --output
+
+03:09:21 args[4]: ..\tmp\%(title)s.%(ext)s
+
+03:09:26 Download completed successfully!
+==========END==========
+

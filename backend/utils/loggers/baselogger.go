@@ -5,7 +5,8 @@ import (
 	"io"
 	"log"
 	"os"
-	"ripflux/config"
+	// "ripflux/config"
+	"ripflux/config/paths"
 	"sync"
 	"time"
 )
@@ -20,7 +21,7 @@ var (
 
 func initLogger() {
 	var err error
-	logFile, err = os.OpenFile(config.BACKEND_LOG_FILE, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFile, err = os.OpenFile(paths.BACKEND_LOG_FILE, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("Failed to open log file: %v", err)
 	}

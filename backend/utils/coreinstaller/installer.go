@@ -5,7 +5,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"ripflux/config"
+	// "ripflux/config"
+	"ripflux/config/paths"
 
 	"fmt"
 
@@ -54,7 +55,7 @@ func getLatestRelease() string {
 
 	for _, asset := range release.Assets {
 
-        if asset.Name == config.YTDLP_EXE {
+        if asset.Name == paths.YTDLP_EXE {
             downloadURL = asset.BrowserDownloadURL
             break
         }
@@ -73,7 +74,7 @@ func downloadFile(downloadURL string) {
 	}
 	defer resp.Body.Close()
 
-    ytdlp_path := filepath.Join(config.BIN_DIR, config.YTDLP_EXE)
+    ytdlp_path := filepath.Join(paths.BIN_DIR, paths.YTDLP_EXE)
     file, err := os.Create(ytdlp_path)
     if err != nil {
         return 

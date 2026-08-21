@@ -7,13 +7,14 @@ import (
 
 	// "fmt"
 	"os"
-	"ripflux/config"
+	// "ripflux/config"
+	"ripflux/config/paths"
 	"ripflux/core/models"
 )
 
 func Json_test() models.DownloadRequestModel {
 
-	data, err := os.Open(config.TEST_DATA)
+	data, err := os.Open(paths.TEST_DATA)
 	if err != nil {
 		wd, _ := os.Getwd()
 		log.Printf("Error: %s || Path: %s", err, wd)

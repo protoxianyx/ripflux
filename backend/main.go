@@ -5,10 +5,8 @@ import (
 	"fmt"
 	"ripflux/core"
 	"ripflux/core/server"
-	"ripflux/tests"
-
+	json_tests "ripflux/tests"
 	// "ripflux/core/models"
-	"ripflux/utils/adapters"
 )
 
 // "log"
@@ -17,10 +15,9 @@ import (
 
 func main() {
 	// coreinstaller.Install()
-	
-	adapters.GetVersion()
-	server.ServerStart()
 
+	// adapters.GetVersion()
+	server.ServerStart()
 
 	// req := models.DownloadRequest{
 	// 	URL:        "https://youtu.be/...",
@@ -33,6 +30,5 @@ func main() {
 
 	fmt.Printf("This is the way to go: %s", processedArgs)
 	fmt.Println("This part shouldn't be reached")
-	
 
 }
