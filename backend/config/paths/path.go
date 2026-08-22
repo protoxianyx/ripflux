@@ -2,7 +2,6 @@ package paths
 
 const (
     BIN_DIR string = "../bin"
-    YTDLP_EXE string = "yt-dlp.exe"
 	FFMPEG_EXE string = " "
 
 

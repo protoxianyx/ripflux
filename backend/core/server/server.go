@@ -37,6 +37,19 @@ func downloadHandler(c *gin.Context) {
 
 }
 
+func versionHandler(c *gin.Context) {
+    version, err := adapters.GetVersion()
+    if err != nil {
+        loggers.Logf("GetVersion failed: %v\n", err)
+        c.JSON(500, gin.H{"error": err.Error()})
+        return
+    }
+
+    c.JSON(200, gin.H{
+        "version": version,
+    })
+}
+
 func ServerStart() {
 
 	router := gin.Default()
@@ -44,6 +57,7 @@ func ServerStart() {
 	router.Use(cors.Default())
 
 	router.POST("/download", downloadHandler)
+    router.GET("/version", versionHandler)
 
 	router.Run(":8080")
 }
@@ -64,5 +78,4 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel) {
 
 	adapters.Download(args)
 
-	// return VidoeFormat
 }

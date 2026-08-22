@@ -1,11 +1,13 @@
-package coreinstaller
+package packagemanager
 
 import (
 	"encoding/json"
 	"io"
 	"os"
 	"path/filepath"
+
 	// "ripflux/config"
+	"ripflux/config"
 	"ripflux/config/paths"
 
 	"fmt"
@@ -27,17 +29,18 @@ type Asset struct {
 
 func Install() {
 
-    downloadURL := getLatestRelease()
+    downloadURL := getLatestReleaseInfo()
 
     fmt.Println(downloadURL)
-    downloadFile(downloadURL)
+    downloadFile(downloadURL[0])
 
 }
 
-func getLatestRelease() string {
+func getLatestReleaseInfo() []string {
 
 	var ytdlp_release string = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest"
     var downloadURL string
+	var latestVersion string
 
 	resp, err := http.Get(ytdlp_release)
 	if err != nil {
@@ -55,13 +58,13 @@ func getLatestRelease() string {
 
 	for _, asset := range release.Assets {
 
-        if asset.Name == paths.YTDLP_EXE {
+        if asset.Name == config.YTDLP_EXE {
             downloadURL = asset.BrowserDownloadURL
             break
         }
 	}
 
-    return downloadURL
+    return []string{downloadURL, latestVersion} 
 }
 
 func downloadFile(downloadURL string) {
@@ -74,7 +77,7 @@ func downloadFile(downloadURL string) {
 	}
 	defer resp.Body.Close()
 
-    ytdlp_path := filepath.Join(paths.BIN_DIR, paths.YTDLP_EXE)
+    ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
     file, err := os.Create(ytdlp_path)
     if err != nil {
         return 

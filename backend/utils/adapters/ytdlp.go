@@ -3,12 +3,15 @@ package adapters
 import (
 	"fmt"
 	"os"
+	"strings"
+
 	// "os"
 	"os/exec"
 	"path/filepath"
 
 	// "ripflux/config"
 	// "ripflux/config"
+	"ripflux/config"
 	"ripflux/config/commands"
 	"ripflux/config/paths"
 	"ripflux/utils/loggers"
@@ -17,18 +20,22 @@ import (
 )
 
 
-var YTDLP string = filepath.Join(paths.BIN_DIR, paths.YTDLP_EXE)
+var YTDLP string = filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
 
-func GetVersion() {
+func GetVersion() (string, error) {
 	
 	cmd := exec.Command(YTDLP, commands.VERSION)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		panic(err)
+		return "", fmt.Errorf("could not get yt-dlp version: %w", err)
 	}
 
+	version := strings.TrimSpace(string(output))
 	// fmt.Printf("The version of ytdlp: %s\n", string(output))
-	loggers.Logf("The version of YTDLP: %s\n", string(output))
+	loggers.Logf("The version of YTDLP: %s\n", version)
+
+	return version, nil
+
 }
 
 func Run() {

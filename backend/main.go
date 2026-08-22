@@ -14,16 +14,9 @@ import (
 // "ripflux/utils/coreinstaller"
 
 func main() {
-	// coreinstaller.Install()
 
-	// adapters.GetVersion()
 	server.ServerStart()
 
-	// req := models.DownloadRequest{
-	// 	URL:        "https://youtu.be/...",
-	// 	Type:       "video",
-	// 	Resolution: "1070",
-	// }
 
 	args := core.BuildArgs(json_tests.Json_test())
 	processedArgs := fmt.Sprintf("%+v", args)

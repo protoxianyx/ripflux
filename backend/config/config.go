@@ -6,7 +6,9 @@ import (
 )
 
 const (
-	TEMP_OUTPUT string = "temp_output"
+	TEMP_OUTPUT        string = "temp_output"
+	YTDLP_EXE          string = "yt-dlp.exe"
+	INSTALLER_LOG_FILE string = "installer.log"
 )
 
 var OUTPUT_TEMPLATE_PATH string = filepath.Join(paths.TMP_FOLDER, "%(title)s.%(ext)s")
