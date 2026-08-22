@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	// "go/format"
+	"ripflux/config"
 	"ripflux/core"
 	"ripflux/core/models"
 
@@ -50,6 +51,8 @@ func versionHandler(c *gin.Context) {
     })
 }
 
+
+
 func ServerStart() {
 
 	router := gin.Default()
@@ -58,6 +61,7 @@ func ServerStart() {
 
 	router.POST("/download", downloadHandler)
     router.GET("/version", versionHandler)
+	
 
 	router.Run(":8080")
 }
@@ -66,16 +70,12 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel) {
 
 	VidoeFormat := submittedRequestData.URL
 	fmt.Printf("This is the URL: %s\n", VidoeFormat)
-	loggers.Logf("This is the URL: %s", VidoeFormat)
 
 	args := core.BuildArgs(submittedRequestData)
 
 	loggers.Log(args)
-	loggers.Logf("Number of args: %d\n", len(args))
-	for i, a := range args {
-		loggers.Logf("args[%d]: %s\n", i, a)
-	}
+	loggers.TaskLog(config.INPUT_LOG_FILE_PATH, args)
 
-	adapters.Download(args)
+	// adapters.Download(args)
 
 }

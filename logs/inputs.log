@@ -1,0 +1,2 @@
+14:01:16 [New Download 2 -f bestvideo[height<=1080]+bestaudio --output ..\tmp\%(title)s.%(ext)s]
+14:01:16 [New Download 2 -f bestvideo[height<=1080]+bestaudio --output ..\tmp\%(title)s.%(ext)s]

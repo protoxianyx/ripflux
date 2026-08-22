@@ -6,8 +6,7 @@ import (
 	"log"
 	"os"
 
-	// "ripflux/config"
-	"ripflux/config/paths"
+	"ripflux/config"
 	"sync"
 	"time"
 )
@@ -22,7 +21,7 @@ var (
 
 func initLogger() {
 	var err error
-	logFile, err = os.OpenFile(paths.BACKEND_LOG_FILE, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFile, err = os.OpenFile(config.COMBINED_LOG_FILE_PATH, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("Failed to open log file: %v", err)
 	}
@@ -65,7 +64,7 @@ func mInitLogger(fileName string) {
 }
 
 func TaskLog(fileName string, v ...any) {
-	once.Do(func(){
+	once.Do(func() {
 		mInitLogger(fileName)
 	})
 
