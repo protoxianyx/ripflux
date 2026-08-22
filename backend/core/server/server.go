@@ -11,6 +11,7 @@ import (
 
 	"ripflux/utils/adapters"
 	"ripflux/utils/loggers"
+	packagemanager "ripflux/utils/package"
 
 	// "ripflux/utils/adapters"
 
@@ -45,6 +46,9 @@ func versionHandler(c *gin.Context) {
         c.JSON(500, gin.H{"error": err.Error()})
         return
     }
+
+	install := packagemanager.Install()
+	loggers.Logf("\nInstalled Version: %v\nLatest Version: %v\n", version, install )
 
     c.JSON(200, gin.H{
         "version": version,

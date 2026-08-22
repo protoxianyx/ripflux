@@ -27,14 +27,18 @@ type Asset struct {
 	BrowserDownloadURL string `json:"browser_download_url"`
 }
 
-func Install() {
+func Install() string {
 
     downloadURL := getLatestReleaseInfo()
 
     fmt.Println(downloadURL)
-    downloadFile(downloadURL[0])
+    // downloadFile(downloadURL[0])
+
+	return downloadURL[1]
 
 }
+
+
 
 func getLatestReleaseInfo() []string {
 
@@ -64,8 +68,12 @@ func getLatestReleaseInfo() []string {
         }
 	}
 
+	latestVersion = release.TagName
+
     return []string{downloadURL, latestVersion} 
 }
+
+
 
 func downloadFile(downloadURL string) {
 
