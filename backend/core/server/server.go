@@ -40,22 +40,24 @@ func downloadHandler(c *gin.Context) {
 }
 
 func versionHandler(c *gin.Context) {
-    version, err := adapters.GetVersion()
-    if err != nil {
-        loggers.Logf("GetVersion failed: %v\n", err)
-        c.JSON(500, gin.H{"error": err.Error()})
-        return
-    }
+	version, err := adapters.GetVersion()
+	if err != nil {
+		loggers.Logf("GetVersion failed: %v\n", err)
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
 
-	install := packagemanager.Install()
-	loggers.Logf("\nInstalled Version: %v\nLatest Version: %v\n", version, install )
+	latestVersion := packagemanager.Install()
 
-    c.JSON(200, gin.H{
-        "version": version,
-    })
+
+	// install := packagemanager.Install()
+	loggers.Logf("\nInstalled Version: %v\nLatest Version: %v\n", version, latestVersion)
+
+	c.JSON(200, gin.H{
+		"version": version,
+		"latestVersion": latestVersion,
+	})
 }
-
-
 
 func ServerStart() {
 
@@ -64,8 +66,7 @@ func ServerStart() {
 	router.Use(cors.Default())
 
 	router.POST("/download", downloadHandler)
-    router.GET("/version", versionHandler)
-	
+	router.GET("/version", versionHandler)
 
 	router.Run(":8080")
 }

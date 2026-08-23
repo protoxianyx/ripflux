@@ -1,4 +1,4 @@
-export async function GetVerison() {
+export async function getVerison() {
     const response = await fetch("http://localhost:8080/version") 
 
     if (!response.ok) {
@@ -6,5 +6,5 @@ export async function GetVerison() {
         throw new Error(error?.error ?? "Failed to get version.")
     }
 
-    return response.json() as Promise<{version: string}>
+    return response.json() as Promise<{version: string, latestVersion: string}>
 }

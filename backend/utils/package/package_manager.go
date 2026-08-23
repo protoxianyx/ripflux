@@ -9,13 +9,13 @@ import (
 	// "ripflux/config"
 	"ripflux/config"
 	"ripflux/config/paths"
+	"ripflux/utils/loggers"
 
 	"fmt"
 
 	// "io"
 	"net/http"
 )
-
 
 type Release struct {
 	TagName string  `json:"tag_name"`
@@ -27,24 +27,28 @@ type Asset struct {
 	BrowserDownloadURL string `json:"browser_download_url"`
 }
 
+type DownloadProps struct {
+	downloadURL   string
+	latestVersion string
+}
+
 func Install() string {
 
-    downloadURL := getLatestReleaseInfo()
+	info := getLatestReleaseInfo()
 
-    fmt.Println(downloadURL)
-    // downloadFile(downloadURL[0])
+	fmt.Println(info.downloadURL)
+	loggers.TaskLog(config.TEST_LOG_FILE_PATH, info.latestVersion)
+	// downloadFile(downloadURL[0])
 
-	return downloadURL[1]
+	return info.latestVersion
 
 }
 
-
-
-func getLatestReleaseInfo() []string {
+func getLatestReleaseInfo() DownloadProps {
 
 	var ytdlp_release string = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest"
-    var downloadURL string
-	var latestVersion string
+	// var downloadURL string
+	// var latestVersion string
 
 	resp, err := http.Get(ytdlp_release)
 	if err != nil {
@@ -53,46 +57,52 @@ func getLatestReleaseInfo() []string {
 	defer resp.Body.Close()
 
 	release := Release{}
+	downloadProps := DownloadProps{}
 
 	err = json.NewDecoder(resp.Body).Decode(&release)
 	if err != nil {
 		panic(err)
 	}
 
-
 	for _, asset := range release.Assets {
 
-        if asset.Name == config.YTDLP_EXE {
-            downloadURL = asset.BrowserDownloadURL
-            break
-        }
+		if asset.Name == config.YTDLP_EXE {
+			downloadProps.downloadURL = asset.BrowserDownloadURL
+			downloadProps.latestVersion = release.TagName
+			break
+		}
 	}
 
-	latestVersion = release.TagName
+	// downloadProps.downloadURL = downloadURL
 
-    return []string{downloadURL, latestVersion} 
+	return downloadProps
 }
 
+func CheckLatestVersion() bool {
 
+	isLatestVersion := false
+	return isLatestVersion
+
+}
 
 func downloadFile(downloadURL string) {
 
-    // fmt.Println(downloadURL)
+	// fmt.Println(downloadURL)
 
-    resp, err := http.Get(downloadURL)
-    	if err != nil {
+	resp, err := http.Get(downloadURL)
+	if err != nil {
 		panic(err)
 	}
 	defer resp.Body.Close()
 
-    ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
-    file, err := os.Create(ytdlp_path)
-    if err != nil {
-        return 
-    }
-    defer file.Close()
+	ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
+	file, err := os.Create(ytdlp_path)
+	if err != nil {
+		return
+	}
+	defer file.Close()
 
-    bytesWritten, err := io.Copy(file, resp.Body)
+	bytesWritten, err := io.Copy(file, resp.Body)
 
-    fmt.Println("Downloaded", bytesWritten, "bytes")
+	fmt.Println("Downloaded", bytesWritten, "bytes")
 }
