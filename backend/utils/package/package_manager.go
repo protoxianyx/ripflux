@@ -37,8 +37,9 @@ func Install() string {
 	info := getLatestReleaseInfo()
 
 	fmt.Println(info.downloadURL)
+	loggers.TaskLog(config.TEST_LOG_FILE_PATH, "Sucessfully reaching the INstall maker:\n")
 	loggers.TaskLog(config.TEST_LOG_FILE_PATH, info.latestVersion)
-	// downloadFile(downloadURL[0])
+	downloadFile(info.downloadURL)
 
 	return info.latestVersion
 

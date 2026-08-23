@@ -59,6 +59,11 @@ func versionHandler(c *gin.Context) {
 	})
 }
 
+func updaterHandler(c *gin.Context) {
+	packagemanager.Install()
+	loggers.TaskLog(config.TEST_LOG_FILE_PATH, "Successfully reaching the updatehandler")
+}
+
 func ServerStart() {
 
 	router := gin.Default()
@@ -67,6 +72,7 @@ func ServerStart() {
 
 	router.POST("/download", downloadHandler)
 	router.GET("/version", versionHandler)
+	router.POST("/latestVersion", updaterHandler)
 
 	router.Run(":8080")
 }

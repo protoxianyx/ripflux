@@ -1,4 +1,4 @@
-import { getVerison } from "@/api/version"
+import { getVerison, installLatestVersion } from "@/api/version"
 // import { useState } from "react"
 import { Button } from "./ui/button"
 import { toast } from "./ui/toast"
@@ -7,15 +7,19 @@ export default function GetVersionButton() {
   // const [version, setVersion] = useState<string | null>(null)
 
   function versionToast(version: string, latestVerison: string) {
-    const description: string = `Current Version: ${version} | Latest Version: ${latestVerison}`
+    const description: string = `Current Version: ${version} \n Latest Version: ${latestVerison}`
 
-    const id = toast.add({
+    function handleUpdater() {
+      installLatestVersion()
+    }
+
+    toast.add({
       title: "Core Version",
       description: description,
       actionProps: {
-        children: "Close",
+        children: "Install Latest Verison",
         onClick() {
-          toast.close(id)
+          handleUpdater()
         },
       },
     })
