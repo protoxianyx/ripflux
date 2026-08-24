@@ -45,6 +45,12 @@ func Install() string {
 
 }
 
+func GetLatestVersion() string {
+	info := getLatestReleaseInfo()
+
+	return info.latestVersion
+}
+
 func getLatestReleaseInfo() DownloadProps {
 
 	var ytdlp_release string = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest"

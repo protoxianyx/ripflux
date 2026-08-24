@@ -314,3 +314,76 @@ Latest Version: 2026.08.19
 Installed Version: 2026.08.19
 Latest Version: 2026.08.19
 
+
+========================= LOG SEGMENT: Monday, 24 Aug 2026 =========================
+05:57:26 GetVersion failed: could not get yt-dlp version: fork/exec ..\bin\yt-dlp.exe: The system cannot find the file specified.
+
+05:57:34 GetVersion failed: could not get yt-dlp version: fork/exec ..\bin\yt-dlp.exe: The system cannot find the file specified.
+
+05:57:36 Sucessfully reaching the INstall maker:
+
+05:57:36 2026.08.19
+05:58:29 Successfully reaching the updatehandler
+05:58:41 GetVersion failed: could not get yt-dlp version: exit status 0xffffffff
+
+05:59:01 GetVersion failed: could not get yt-dlp version: exit status 0xffffffff
+
+06:04:35 GetVersion failed: could not get yt-dlp version: exit status 0xffffffff
+
+06:04:36 Sucessfully reaching the INstall maker:
+
+06:04:36 2026.08.19
+06:05:15 Successfully reaching the updatehandler
+06:05:45 The version of YTDLP: 2026.08.19
+
+06:05:46 Sucessfully reaching the INstall maker:
+
+06:05:46 2026.08.19
+06:06:05 
+Installed Version: 2026.08.19
+Latest Version: 2026.08.19
+
+06:06:06 The version of YTDLP: 2026.08.19
+
+06:06:06 Sucessfully reaching the INstall maker:
+
+06:06:06 2026.08.19
+06:06:21 
+Installed Version: 2026.08.19
+Latest Version: 2026.08.19
+
+06:06:40 The version of YTDLP: 2026.08.19
+
+06:06:40 Sucessfully reaching the INstall maker:
+
+06:06:40 2026.08.19
+06:07:13 
+Installed Version: 2026.08.19
+Latest Version: 2026.08.19
+
+
+========================= LOG SEGMENT: Monday, 24 Aug 2026 =========================
+06:14:33 The version of YTDLP: 2026.08.19
+
+06:14:33 
+Installed Version: 2026.08.19
+Latest Version: 2026.08.19
+
+06:14:43 The version of YTDLP: 2026.08.19
+
+06:14:43 
+Installed Version: 2026.08.19
+Latest Version: 2026.08.19
+
+06:15:44 GetVersion failed: could not get yt-dlp version: fork/exec ..\bin\yt-dlp.exe: The system cannot find the file specified.
+
+06:15:58 Sucessfully reaching the INstall maker:
+
+06:15:58 2026.08.19
+06:16:15 Successfully reaching the updatehandler
+06:16:37 The version of YTDLP: 2026.08.19
+
+06:16:37 
+Installed Version: 2026.08.19
+Latest Version: 2026.08.19
+

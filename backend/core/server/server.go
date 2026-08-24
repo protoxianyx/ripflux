@@ -40,6 +40,7 @@ func downloadHandler(c *gin.Context) {
 }
 
 func versionHandler(c *gin.Context) {
+	latestVersion := packagemanager.GetLatestVersion()
 	version, err := adapters.GetVersion()
 	if err != nil {
 		loggers.Logf("GetVersion failed: %v\n", err)
@@ -47,14 +48,11 @@ func versionHandler(c *gin.Context) {
 		return
 	}
 
-	latestVersion := packagemanager.Install()
-
-
 	// install := packagemanager.Install()
 	loggers.Logf("\nInstalled Version: %v\nLatest Version: %v\n", version, latestVersion)
 
 	c.JSON(200, gin.H{
-		"version": version,
+		"version":       version,
 		"latestVersion": latestVersion,
 	})
 }
