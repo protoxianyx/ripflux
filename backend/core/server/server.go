@@ -44,6 +44,7 @@ func versionHandler(c *gin.Context) {
 	version, err := adapters.GetVersion()
 	if err != nil {
 		loggers.Logf("GetVersion failed: %v\n", err)
+		version = err.Error()
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}

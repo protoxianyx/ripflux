@@ -6,12 +6,12 @@ import { toast } from "./ui/toast"
 export default function GetVersionButton() {
   // const [version, setVersion] = useState<string | null>(null)
 
+  function handleUpdater() {
+    installLatestVersion()
+  }
+
   function versionToast(version: string, latestVerison: string) {
     const description: string = `Current Version: ${version} \n Latest Version: ${latestVerison}`
-
-    function handleUpdater() {
-      installLatestVersion()
-    }
 
     toast.add({
       title: "Core Version",

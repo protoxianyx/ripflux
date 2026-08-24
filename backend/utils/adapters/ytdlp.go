@@ -23,6 +23,14 @@ import (
 var YTDLP string = filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
 
 func GetVersion() (string, error) {
+	_, err := os.Stat(YTDLP)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return "", loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, "YTDLP is missing")
+		}
+
+		return "", loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, "Could not access YTDLP")
+	}
 	
 	cmd := exec.Command(YTDLP, commands.VERSION)
 	output, err := cmd.CombinedOutput()
