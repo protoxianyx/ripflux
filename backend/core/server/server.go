@@ -61,6 +61,11 @@ func versionHandler(c *gin.Context) {
 func updaterHandler(c *gin.Context) {
 	packagemanager.Install()
 	loggers.TaskLog(config.TEST_LOG_FILE_PATH, "Successfully reaching the updatehandler")
+
+	c.JSON(200, gin.H{
+		"status":  "success",
+		"message": "Update completed successfully",
+	})
 }
 
 func ServerStart() {
@@ -86,6 +91,6 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel) {
 	loggers.Log(args)
 	loggers.TaskLog(config.INPUT_LOG_FILE_PATH, args)
 
-	// adapters.Download(args)
+	adapters.Download(args)
 
 }

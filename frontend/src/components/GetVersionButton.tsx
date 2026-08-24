@@ -6,10 +6,6 @@ import { toast } from "./ui/toast"
 export default function GetVersionButton() {
   // const [version, setVersion] = useState<string | null>(null)
 
-  function handleUpdater() {
-    installLatestVersion()
-  }
-
   function versionToast(version: string, latestVerison: string) {
     const description: string = `Current Version: ${version} \n Latest Version: ${latestVerison}`
 
@@ -33,6 +29,15 @@ export default function GetVersionButton() {
     } catch (error) {
       console.log(error)
       versionToast("Failed to get version", "Failed to get latest version")
+    }
+  }
+
+  async function handleUpdater() {
+    try {
+      await installLatestVersion()
+      console.log("Update request completed")
+    } catch (error) {
+      console.error("Update request failed:", error)
     }
   }
 

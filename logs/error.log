@@ -27,3 +27,5 @@ Latest Version: 2026.08.19
 
 06:57:36 2026.08.19
 06:58:14 Successfully reaching the updatehandler
+08:32:30 [https://youtu.be/_BDWzLJMuX8?si=f2L_sJ2zfagm4wGN -f bestvideo[height<=1080]+bestaudio --output ..\tmp\%(title)s.%(ext)s]
+08:32:30 [https://youtu.be/_BDWzLJMuX8?si=f2L_sJ2zfagm4wGN -f bestvideo[height<=1080]+bestaudio --output ..\tmp\%(title)s.%(ext)s]
