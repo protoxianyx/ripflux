@@ -51,7 +51,13 @@ func downloadHandler(c *gin.Context) {
 }
 
 func versionHandler(c *gin.Context) {
-	latestVersion := packagemanager.GetLatestVersion()
+	latestVersion, err := packagemanager.GetLatestVersionInfo()
+	if err!= nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+	}
+
 	version, err := adapters.GetVersion()
 	if err != nil {
 		loggers.Logf("GetVersion failed: %v\n", err)
@@ -79,6 +85,20 @@ func updaterHandler(c *gin.Context) {
 	})
 }
 
+func latestVersionInfo(c *gin.Context) {
+	latestVersionInfo, err := packagemanager.GetLatestVersionInfo()
+	if err!= nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"latestVersionInfo": latestVersionInfo,
+	})
+	
+}
+
 func ServerStart() {
 
 	router := gin.Default()
@@ -88,6 +108,7 @@ func ServerStart() {
 	router.POST("/download", downloadHandler)
 	router.GET("/version", versionHandler)
 	router.POST("/latestVersion", updaterHandler)
+	router.GET("/latestVersionInfo", latestVersionInfo)
 
 	router.Run(":8080")
 }

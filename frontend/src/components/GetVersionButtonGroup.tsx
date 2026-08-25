@@ -1,9 +1,14 @@
-import { getVerison, installLatestVersion } from "@/api/version"
+import {
+  getLatestVersionInfo,
+  getVerison,
+  installLatestVersion,
+} from "@/api/version"
 // import { useState } from "react"
 import { Button } from "./ui/button"
 import { toast } from "./ui/toast"
+import { ButtonGroup } from "./ui/button-group"
 
-export default function GetVersionButton() {
+export default function GetVersionButtonGroup() {
   // const [version, setVersion] = useState<string | null>(null)
 
   function versionToast(version: string, latestVerison: string) {
@@ -41,17 +46,27 @@ export default function GetVersionButton() {
     }
   }
 
+  async function showLatestVerison() {
+    const latestVerison = await getLatestVersionInfo()
+
+    toast.add({
+      title: "Latest Version: ",
+      description: latestVerison.latestVersionInfo,
+    })
+  }
+
   return (
-    <div className="absolute top-6 right-6 flex items-center gap-3">
+    <div className="absolute top-6 right-6">
       {/* {version && <span className="text-sm">{version}</span>} */}
-      <Button
-        type="button"
-        onClick={() => {
-          handleClick()
-        }}
-      >
-        Get Version
-      </Button>
+      <ButtonGroup>
+        <Button type="button" onClick={handleClick}>
+          Get Version
+        </Button>
+        <Button type="button" onClick={showLatestVerison}>
+          {" "}
+          Check For Latest Version
+        </Button>
+      </ButtonGroup>
     </div>
   )
 }
