@@ -6,7 +6,7 @@ type logFiles struct {
 	BACKEND_LOGS   string
 	TEST_LOGS      string
 	COMBINED_LOGS  string
-	ERROR_LOGS string
+	ERROR_LOGS     string
 }
 
 var LogFiles = logFiles{
@@ -15,5 +15,5 @@ var LogFiles = logFiles{
 	BACKEND_LOGS:   "backend_output.log",
 	TEST_LOGS:      "test_output.log",
 	COMBINED_LOGS:  "combined_backend.log",
-	ERROR_LOGS: "error.log",
+	ERROR_LOGS:     "error.log",
 }

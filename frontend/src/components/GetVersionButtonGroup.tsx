@@ -56,14 +56,13 @@ export default function GetVersionButtonGroup() {
   }
 
   return (
-    <div className="absolute top-6 right-6">
+    <div>
       {/* {version && <span className="text-sm">{version}</span>} */}
       <ButtonGroup>
         <Button type="button" onClick={handleClick}>
           Get Version
         </Button>
         <Button type="button" onClick={showLatestVerison}>
-          {" "}
           Check For Latest Version
         </Button>
       </ButtonGroup>
