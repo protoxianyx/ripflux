@@ -1,7 +1,9 @@
 import { HttpMethod } from "@/types/httpMethods"
 
 export async function getVerison() {
-  const response = await fetch("http://localhost:8080/version")
+  const response = await fetch("http://localhost:8080/version", {
+    method: HttpMethod.GET
+  })
 
   if (!response.ok) {
     const error = await response.json().catch(() => null)
