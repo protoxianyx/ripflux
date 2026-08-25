@@ -15,7 +15,7 @@ export async function getVerison() {
 
 export async function installLatestVersion() {
   const response = await fetch("http://localhost:8080/latestVersion", {
-    method: "POST",
+    method: HttpMethod.POST,
     
   })
   if (!response.ok) {
