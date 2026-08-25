@@ -19,7 +19,6 @@ import (
 	// "ripflux/core/models"
 )
 
-
 var YTDLP string = filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
 
 func GetVersion() (string, error) {
@@ -31,7 +30,7 @@ func GetVersion() (string, error) {
 
 		return "", loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, "Could not access YTDLP")
 	}
-	
+
 	cmd := exec.Command(YTDLP, commands.VERSION)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
@@ -47,22 +46,23 @@ func GetVersion() (string, error) {
 }
 
 func Run() {
-	
+
 	fmt.Println()
 }
 
-func Download(args []string) {
+func Download(args []string) error {
 	cmd := exec.Command(YTDLP, args...)
-	
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	err := cmd.Run()
-	if err != nil {
+	if err := cmd.Run(); err != nil {
 		loggers.Logf("Execution failed: %v\n==========END==========\n", err)
+		// err := fmt.Sprintf("ytdlp execution failed: %v", err.Error())
+		return loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, err.Error())
 	}
 
 	loggers.Log("Download completed successfully!\n==========END==========\n")
 
+	return nil
 }

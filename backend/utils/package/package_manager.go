@@ -45,10 +45,13 @@ func Install() string {
 
 }
 
-func GetLatestVersion() string {
+func GetLatestVersionInfo() (string, error) {
 	info := getLatestReleaseInfo()
+	if info.latestVersion == " " {
+		loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, "Empty DownloadProps")
+	}
 
-	return info.latestVersion
+	return info.latestVersion, nil
 }
 
 func getLatestReleaseInfo() DownloadProps {
