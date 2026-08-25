@@ -2,6 +2,8 @@ package server
 
 import (
 	"fmt"
+	"net/http"
+
 	// "go/format"
 	"ripflux/config"
 	"ripflux/core"
@@ -10,6 +12,7 @@ import (
 	// "ripflux/core/server"
 
 	"ripflux/utils/adapters"
+	// "ripflux/utils/adapters/ytdlpexe"
 	"ripflux/utils/loggers"
 	packagemanager "ripflux/utils/package"
 
@@ -23,18 +26,26 @@ func downloadHandler(c *gin.Context) {
 	var req models.DownloadRequestModel
 
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(400, gin.H{
-			"error": err.Error(),
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": "Invalid request body",
+			"error":   err.Error(),
 		})
 		return
 	}
 
-	// fmt.Printf("%+v\n", req)
+	if err := InputDataSend(req); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": "Download failed",
+			"error":   err.Error(),
+		})
+		return
+	}
 
-	InputDataSend(req)
-
-	c.JSON(200, gin.H{
-		"status": "ok",
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "Sucess",
+		"message": "Download Complete sucessfully",
 	})
 
 }
@@ -45,7 +56,7 @@ func versionHandler(c *gin.Context) {
 	if err != nil {
 		loggers.Logf("GetVersion failed: %v\n", err)
 		version = err.Error()
-		c.JSON(500, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -62,7 +73,7 @@ func updaterHandler(c *gin.Context) {
 	packagemanager.Install()
 	loggers.TaskLog(config.TEST_LOG_FILE_PATH, "Successfully reaching the updatehandler")
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"status":  "success",
 		"message": "Update completed successfully",
 	})
@@ -81,7 +92,7 @@ func ServerStart() {
 	router.Run(":8080")
 }
 
-func InputDataSend(submittedRequestData models.DownloadRequestModel) {
+func InputDataSend(submittedRequestData models.DownloadRequestModel) error {
 
 	VidoeFormat := submittedRequestData.URL
 	fmt.Printf("This is the URL: %s\n", VidoeFormat)
@@ -91,6 +102,11 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel) {
 	loggers.Log(args)
 	loggers.TaskLog(config.INPUT_LOG_FILE_PATH, args)
 
-	adapters.Download(args)
+	// adapters.Download(args)
+
+	// binexe := adapters.Binexe{}
+
+	return adapters.Download(args)
+	// return fmt.Errorf("downloader was skipped: adapters.Download is disabled")
 
 }
