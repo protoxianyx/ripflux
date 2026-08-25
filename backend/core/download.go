@@ -10,7 +10,6 @@ import (
 func BuildArgs(req models.DownloadRequestModel) []string {
 	args := []string{}
 
-	// new args dsad
 
 	args = append(args, req.URL)
 	switch req.Format {
