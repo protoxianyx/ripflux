@@ -2,6 +2,8 @@ package server
 
 import (
 	"fmt"
+	"net/http"
+
 	// "go/format"
 	"ripflux/config"
 	"ripflux/core"
@@ -10,7 +12,9 @@ import (
 	// "ripflux/core/server"
 
 	"ripflux/utils/adapters"
+	// "ripflux/utils/adapters/ytdlpexe"
 	"ripflux/utils/loggers"
+	packagemanager "ripflux/utils/package"
 
 	// "ripflux/utils/adapters"
 
@@ -22,36 +26,78 @@ func downloadHandler(c *gin.Context) {
 	var req models.DownloadRequestModel
 
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(400, gin.H{
-			"error": err.Error(),
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "error",
+			"message": "Invalid request body",
+			"error":   err.Error(),
 		})
 		return
 	}
 
-	// fmt.Printf("%+v\n", req)
+	if err := InputDataSend(req); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": "Download failed",
+			"error":   err.Error(),
+		})
+		return
+	}
 
-	InputDataSend(req)
-
-	c.JSON(200, gin.H{
-		"status": "ok",
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "Sucess",
+		"message": "Download Complete sucessfully",
 	})
 
 }
 
 func versionHandler(c *gin.Context) {
-    version, err := adapters.GetVersion()
-    if err != nil {
-        loggers.Logf("GetVersion failed: %v\n", err)
-        c.JSON(500, gin.H{"error": err.Error()})
-        return
-    }
+	latestVersion, err := packagemanager.GetLatestVersionInfo()
+	if err!= nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+	}
 
-    c.JSON(200, gin.H{
-        "version": version,
-    })
+	version, err := adapters.GetVersion()
+	if err != nil {
+		loggers.Logf("GetVersion failed: %v\n", err)
+		version = err.Error()
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// install := packagemanager.Install()
+	loggers.Logf("\nInstalled Version: %v\nLatest Version: %v\n", version, latestVersion)
+
+	c.JSON(200, gin.H{
+		"version":       version,
+		"latestVersion": latestVersion,
+	})
 }
 
+func updaterHandler(c *gin.Context) {
+	packagemanager.Install()
+	loggers.TaskLog(config.TEST_LOG_FILE_PATH, "Successfully reaching the updatehandler")
 
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Update completed successfully",
+	})
+}
+
+func latestVersionInfo(c *gin.Context) {
+	latestVersionInfo, err := packagemanager.GetLatestVersionInfo()
+	if err!= nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"latestVersionInfo": latestVersionInfo,
+	})
+	
+}
 
 func ServerStart() {
 
@@ -60,13 +106,14 @@ func ServerStart() {
 	router.Use(cors.Default())
 
 	router.POST("/download", downloadHandler)
-    router.GET("/version", versionHandler)
-	
+	router.GET("/version", versionHandler)
+	router.POST("/latestVersion", updaterHandler)
+	router.GET("/latestVersionInfo", latestVersionInfo)
 
 	router.Run(":8080")
 }
 
-func InputDataSend(submittedRequestData models.DownloadRequestModel) {
+func InputDataSend(submittedRequestData models.DownloadRequestModel) error {
 
 	VidoeFormat := submittedRequestData.URL
 	fmt.Printf("This is the URL: %s\n", VidoeFormat)
@@ -77,5 +124,10 @@ func InputDataSend(submittedRequestData models.DownloadRequestModel) {
 	loggers.TaskLog(config.INPUT_LOG_FILE_PATH, args)
 
 	// adapters.Download(args)
+
+	// binexe := adapters.Binexe{}
+
+	return adapters.Download(args)
+	// return fmt.Errorf("downloader was skipped: adapters.Download is disabled")
 
 }
