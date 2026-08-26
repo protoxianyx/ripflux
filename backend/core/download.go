@@ -10,6 +10,7 @@ import (
 func BuildArgs(req models.DownloadRequestModel) []string {
 	args := []string{}
 
+
 	args = append(args, req.URL)
 	switch req.Format {
 	case "Video":
@@ -21,7 +22,7 @@ func BuildArgs(req models.DownloadRequestModel) []string {
 		case "720":
 			args = append(args, "bestvideo[height<=720]+bestaudio")
 		default:
-			args = append(args, errors.MATCH_NOT_FOUND)
+			args = append(args, errors.UserSide.MATCH_NOT_FOUND)
 		}
 
 	case "Audio":
