@@ -24,4 +24,4 @@ var OUTPUT_TMP_PATH string = filepath.Join(".", paths.PATH_GO_BACK, paths.TMP_FO
 var COMBINED_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.COMBINED_LOGS)
 var INPUT_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.INPUT_LOG)
 var TEST_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.TEST_LOGS)
-var  ERROR_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.ERROR_LOGS)
+var ERROR_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.ERROR_LOGS)

@@ -56,6 +56,7 @@ func versionHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
+		return
 	}
 
 	version, err := adapters.GetVersion()
