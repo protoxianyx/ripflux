@@ -1,14 +1,16 @@
+import { HttpMethod } from "@/types/httpMethods"
 import { apiUrl } from "./client"
-import { apiRoutes } from "./routes"
+import { APIRoutes } from "./routes"
+
 
 type ApiErrorResponse = {
   error?: string
 }
 
 export async function getVerison() {
-  const route = apiRoutes.version
-  const response = await fetch(apiUrl(route.path), {
-    method: route.method,
+  
+  const response = await fetch(apiUrl(APIRoutes.version), {
+    method: HttpMethod.GET,
   })
 
   if (!response.ok) {
@@ -22,9 +24,9 @@ export async function getVerison() {
 }
 
 export async function installLatestVersion() {
-  const route = apiRoutes.installLatestVersion
-  const response = await fetch(apiUrl(route.path), {
-    method: route.method,
+  
+  const response = await fetch(apiUrl(APIRoutes.installLatestVersion), {
+    method: HttpMethod.POST,
   })
   if (!response.ok) {
     const error = await response.json().catch(() => null)
@@ -33,9 +35,9 @@ export async function installLatestVersion() {
 }
 
 export async function getLatestVersionInfo() {
-  const route = apiRoutes.latestVersionInfo
-  const response = await fetch(apiUrl(route.path), {
-    method: route.method,
+  // const route = apiRoutes.latestVersionInfo
+  const response = await fetch(apiUrl(APIRoutes.latestVersionInfo), {
+    method: HttpMethod.GET,
   })
 
   if (!response.ok) {
