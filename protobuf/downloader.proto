@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package downloader;
+
+option go_package = "ripflux/gen/downloader";
+
+// buf:lint:ignore SERVICE_SUFFIX
+service Downloader {
+  rpc Download(DownloadRequest) returns (DownloadResponse);
+  rpc GetVersion(GetVersionRequest) returns (GetVersionResponse);
+}
+
+message DownloadRequest {
+  string url = 1;
+  string format = 2;
+  string resolution = 3;
+  string output_directory = 4;
+}
+
+message DownloadResponse {
+  bool success = 1;
+  string message = 2;
+  string output_path = 3;
+}
+
+message GetVersionRequest {}
+
+message GetVersionResponse {
+  string version = 1;
+}

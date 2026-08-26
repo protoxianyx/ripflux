@@ -1,4 +1,3 @@
-import { HttpMethod } from "@/types/httpMethods"
 import { apiUrl } from "./client"
 import { apiRoutes } from "./routes"
 
@@ -23,8 +22,9 @@ export async function getVerison() {
 }
 
 export async function installLatestVersion() {
-  const response = await fetch("http://localhost:8080/latestVersion", {
-    method: HttpMethod.POST,
+  const route = apiRoutes.installLatestVersion
+  const response = await fetch(apiUrl(route.path), {
+    method: route.method,
   })
   if (!response.ok) {
     const error = await response.json().catch(() => null)
@@ -33,8 +33,9 @@ export async function installLatestVersion() {
 }
 
 export async function getLatestVersionInfo() {
-  const response = await fetch("http://localhost:8080/latestVersionInfo", {
-    method: HttpMethod.GET,
+  const route = apiRoutes.latestVersionInfo
+  const response = await fetch(apiUrl(route.path), {
+    method: route.method,
   })
 
   if (!response.ok) {
