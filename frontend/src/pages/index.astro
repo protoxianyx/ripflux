@@ -7,13 +7,15 @@ import InputForm from "@/components/InputForm"
 import GetVersionButton from "@/components/GetVersionButtonGroup"
 import { Toaster } from "@/components/ui/toast"
 import GetVersionButtonGroup from "@/components/GetVersionButtonGroup"
+import ActionButtonGroup from "@/components/containers/ActionButtonGroup"
 ---
 
 <Layout>
   <main
     class="flex min-h-screen items-center justify-center bg-background text-foreground"
   >
-    <GetVersionButtonGroup client:load />
+    <!-- <GetVersionButtonGroup client:load /> -->
+     <ActionButtonGroup client:load/>
     <Toaster client:load />
     <div class="w-full max-w-3xl space-y-6">
       <h1 class="text-center text-5xl font-bold">RIPFLUX</h1>
