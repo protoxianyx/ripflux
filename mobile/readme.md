@@ -1,0 +1,1 @@
+Mobile version of the app that will be made with the capacitor framework. 

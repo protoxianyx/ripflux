@@ -1,0 +1,1 @@
+This will have the code for the desktop version of this app, made with wails 
