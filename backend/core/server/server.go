@@ -7,7 +7,7 @@ import (
 	// "go/format"
 	"ripflux/config"
 	"ripflux/core"
-	"ripflux/core/models"
+	"ripflux/models"
 
 	// "ripflux/core/server"
 
@@ -52,7 +52,7 @@ func downloadHandler(c *gin.Context) {
 
 func versionHandler(c *gin.Context) {
 	latestVersion, err := packagemanager.GetLatestVersionInfo()
-	if err!= nil {
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -88,7 +88,7 @@ func updaterHandler(c *gin.Context) {
 
 func latestVersionInfo(c *gin.Context) {
 	latestVersionInfo, err := packagemanager.GetLatestVersionInfo()
-	if err!= nil {
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -97,7 +97,7 @@ func latestVersionInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"latestVersionInfo": latestVersionInfo,
 	})
-	
+
 }
 
 func ServerStart() {
@@ -116,19 +116,10 @@ func ServerStart() {
 
 func InputDataSend(submittedRequestData models.DownloadRequestModel) error {
 
-	VidoeFormat := submittedRequestData.URL
-	fmt.Printf("This is the URL: %s\n", VidoeFormat)
-
-	args := core.BuildArgs(submittedRequestData)
-
-	loggers.Log(args)
+	fmt.Printf("This is the URL: %s\n", submittedRequestData.URL)
+	args := core.BuildDownloadArgs(submittedRequestData)
 	loggers.TaskLog(config.INPUT_LOG_FILE_PATH, args)
-
-	// adapters.Download(args)
-
-	// binexe := adapters.Binexe{}
 
 	return adapters.Download(args)
 	// return fmt.Errorf("downloader was skipped: adapters.Download is disabled")
-
 }

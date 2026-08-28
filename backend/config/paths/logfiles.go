@@ -7,6 +7,8 @@ type logFiles struct {
 	TEST_LOGS      string
 	COMBINED_LOGS  string
 	ERROR_LOGS     string
+	LOG            string
+	VERSION_LOG    string
 }
 
 var LogFiles = logFiles{
@@ -16,4 +18,6 @@ var LogFiles = logFiles{
 	TEST_LOGS:      "test_output.log",
 	COMBINED_LOGS:  "combined_backend.log",
 	ERROR_LOGS:     "error.log",
+	LOG:            "ripflux.log",
+	VERSION_LOG:    "versionInfo.log",
 }

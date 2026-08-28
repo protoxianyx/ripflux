@@ -2,19 +2,19 @@ package core
 
 import (
 	"ripflux/config"
+	"ripflux/config/commands"
 	"ripflux/config/errors"
-	"ripflux/core/models"
+	"ripflux/models"
 	"ripflux/utils/adapters"
 )
 
-func BuildArgs(req models.DownloadRequestModel) []string {
+func BuildDownloadArgs(req models.DownloadRequestModel) []string {
 	args := []string{}
-
 
 	args = append(args, req.URL)
 	switch req.Format {
 	case "Video":
-		args = append(args, "-f")
+		args = append(args, commands.YTDLP_FLAGS.FORMAT)
 
 		switch req.Resolution {
 		case "1080":
@@ -27,12 +27,12 @@ func BuildArgs(req models.DownloadRequestModel) []string {
 
 	case "Audio":
 		args = append(args,
-			"-x",
-			"--audio-format",
-			"mp3")
+			commands.YTDLP_FLAGS.AUDIO_EXTRACT,
+			commands.YTDLP_FLAGS.AUDIO_EXTRACT,
+			commands.YTDLP_PRESETS.MP3)
 	}
 
-	args = append(args, "--output", config.OUTPUT_TMP_PATH)
+	args = append(args, commands.YTDLP_FLAGS.OUTPUT, config.OUTPUT_TMP_PATH)
 
 	return args
 }
