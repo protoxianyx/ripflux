@@ -1,0 +1,11 @@
+{
+    "downloadApiLinks":{
+        "ffmpeg":"https://api.github.com/repos/BtbN/FFmpeg-Builds/releases/latest",
+        "ytdlp":"",
+        "python": ""
+    },
+
+    "tmp":{
+        
+    }
+}
