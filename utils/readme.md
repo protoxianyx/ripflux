@@ -1,1 +1,0 @@
-This directory will basically have all the binary managers or other utils that aide the function of the backend and the frontend. For example the binary downloaders and all that. For the time being it is part of the backend itself, but later I will refactor it here and live as an indipendent package in itself. 
