@@ -127,3 +127,7 @@ func ProcessDownloadRequest(submittedRequestData models.DownloadRequestModel) er
 
 	// return fmt.Errorf("downloader was skipped: adapters.Download is disabled")
 }
+
+func newFunc() {
+
+}
