@@ -21,7 +21,7 @@ var (
 
 func initLogger() {
 	var err error
-	logFile, err = os.OpenFile(config.COMBINED_LOG_FILE_PATH, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFile, err = os.OpenFile(config.LOG_FILE_PATH, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("Failed to open log file: %v", err)
 	}
@@ -55,7 +55,7 @@ func Logf(format string, v ...any) {
 func mInitLogger(fileName string) {
 	logFile, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("Failed to open log file: %v", err)
+		log.Fatalf("Failed to open the specified log file: %v", err)
 
 	}
 
@@ -110,4 +110,62 @@ func MTaskLog(fileName string, printOnTerminal bool, v ...any) error {
 	}
 
 	return fmt.Errorf("ERROR: Check Logs")
+}
+
+func MultiLogf(
+	fileName string,
+	printOnTerminal bool,
+	format string,
+	v ...any,
+) error {
+
+	once.Do(initLogger)
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	writters := []io.Writer{logFile}
+
+	var extraFile *os.File
+	if fileName != "" && fileName != config.LOG_FILE_PATH {
+		var err error
+		extraFile, err = os.OpenFile(
+			fileName,
+			os.O_CREATE|os.O_WRONLY|os.O_APPEND,
+			0666,
+		)
+		if err != nil {
+			return fmt.Errorf("open secondary log file: %w", err)
+		}
+		defer extraFile.Close()
+
+		writters = append(writters, extraFile)
+	}
+
+	now := time.Now()
+	currentDate := now.Format("2006-01-02")
+
+	if lastHeader != currentDate {
+		lastHeader = currentDate
+
+		header := fmt.Sprintf(
+			"\n========================= LOG SEGMENT: %s =========================\n",
+			now.Format("Monday, 02 Jan 2006"),
+		)
+
+		_, err := io.MultiWriter(writters...).Write([]byte(header))
+		if err != nil {
+			return fmt.Errorf("write log header: %w", err)
+		}
+	}
+
+	logger := log.New(io.MultiWriter(writters...), "", log.Ltime)
+	logger.Print(v...)
+
+	if printOnTerminal {
+		fmt.Printf(format+"\n", v...)
+	}
+
+	return nil
+
 }
