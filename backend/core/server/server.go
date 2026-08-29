@@ -1,8 +1,8 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
+	"strings"
 
 	// "go/format"
 	"ripflux/config"
@@ -34,7 +34,7 @@ func downloadHandler(c *gin.Context) {
 		return
 	}
 
-	if err := InputDataSend(req); err != nil {
+	if err := ProcessDownloadRequest(req); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status":  "error",
 			"message": "Download failed",
@@ -114,12 +114,16 @@ func ServerStart() {
 	router.Run(":8080")
 }
 
-func InputDataSend(submittedRequestData models.DownloadRequestModel) error {
+func ProcessDownloadRequest(submittedRequestData models.DownloadRequestModel) error {
 
-	fmt.Printf("This is the URL: %s\n", submittedRequestData.URL)
-	args := core.BuildDownloadArgs(submittedRequestData)
+	submittedRequestData.Format = strings.ToLower(submittedRequestData.Format)
+	submittedRequestData.Resolution = strings.ToLower(submittedRequestData.Resolution)
+
+	args := core.BuildDownloadCommand(submittedRequestData)
+
 	loggers.TaskLog(config.INPUT_LOG_FILE_PATH, args)
 
 	return adapters.Download(args)
+
 	// return fmt.Errorf("downloader was skipped: adapters.Download is disabled")
 }

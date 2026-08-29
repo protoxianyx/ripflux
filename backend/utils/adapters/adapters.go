@@ -5,18 +5,13 @@ import (
 	"os"
 	"strings"
 
-	// "os"
 	"os/exec"
 	"path/filepath"
 
-	// "ripflux/config"
-	// "ripflux/config"
 	"ripflux/config"
 	"ripflux/config/commands"
 	"ripflux/config/paths"
 	"ripflux/utils/loggers"
-	// "ripflux/core"
-	// "ripflux/core/models"
 )
 
 var YTDLP string = filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)

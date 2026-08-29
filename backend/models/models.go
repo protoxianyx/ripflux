@@ -4,9 +4,10 @@ type DownloadRequestModel struct {
 	URL        string `json:"url"`
 	Format     string `json:"format"`
 	Resolution string `json:"resolution"`
+	DryRun     string `json:"dry_run,omitempty"`
 }
 
-type ExecuteCommandModel struct {
+type CommandStructModel struct {
 	Command string
 	CmdArgs []string
 
@@ -14,8 +15,3 @@ type ExecuteCommandModel struct {
 	FlagArg string
 }
 
-type ServiveIOModel struct {
-	Input ExecuteCommandModel
-	Output string
-    Logs string
-}

@@ -5,10 +5,9 @@ import (
 	"ripflux/config/commands"
 	"ripflux/config/errors"
 	"ripflux/models"
-	"ripflux/utils/adapters"
 )
 
-func BuildDownloadArgs(req models.DownloadRequestModel) []string {
+func BuildDownloadCommand(req models.DownloadRequestModel) []string {
 	args := []string{}
 
 	args = append(args, req.URL)
@@ -35,9 +34,4 @@ func BuildDownloadArgs(req models.DownloadRequestModel) []string {
 	args = append(args, commands.YTDLP_FLAGS.OUTPUT, config.OUTPUT_TMP_PATH)
 
 	return args
-}
-
-func Downloader(args []string) {
-	adapters.Download(args)
-
 }

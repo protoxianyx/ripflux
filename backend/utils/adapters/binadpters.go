@@ -8,7 +8,7 @@ import (
 type ytdlp_io struct {
 }
 
-func ExecuteYTDLP(args models.ExecuteCommandModel) error {
+func ExecuteYTDLP(args models.CommandStructModel) error {
 	cmd := exec.Command(args.Command, args.CmdArgs...)
 
 	cmd.Run()
