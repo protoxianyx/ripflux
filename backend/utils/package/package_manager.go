@@ -74,7 +74,7 @@ func getLatestReleaseInfo() DownloadProps {
 
 	for _, asset := range release.Assets {
 
-		if asset.Name == config.YTDLP_EXE {
+		if asset.Name == config.YTDLP_BIN {
 			downloadProps.downloadURL = asset.BrowserDownloadURL
 			downloadProps.latestVersion = release.TagName
 			break
@@ -103,7 +103,7 @@ func downloadFile(downloadURL string) {
 	}
 	defer resp.Body.Close()
 
-	ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
+	ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_BIN)
 	file, err := os.Create(ytdlp_path)
 	if err != nil {
 		return
