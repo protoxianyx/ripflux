@@ -10,8 +10,14 @@ type DownloadRequestModel struct {
 type CommandStructModel struct {
 	Command string
 	CmdArgs []string
-
-	Flag    string
-	FlagArg string
 }
 
+type SubCommandModel struct {
+	Flag     string
+	FlagArgs []string
+}
+
+func (*SubCommandModel) buildCmdArgs(command string, args SubCommandModel) CommandStructModel {
+
+	return CommandStructModel{command, args.FlagArgs}
+}
