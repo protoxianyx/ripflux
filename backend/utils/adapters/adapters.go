@@ -6,18 +6,16 @@ import (
 	"strings"
 
 	"os/exec"
-	"path/filepath"
 
 	"ripflux/config"
 	"ripflux/config/commands"
-	"ripflux/config/paths"
 	"ripflux/utils/loggers"
 )
 
-var YTDLP string = filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
+// var YTDLP string = filepath.Join(paths.BIN_DIR, config.YTDLP_EXE)
 
 func GetVersion() (string, error) {
-	_, err := os.Stat(YTDLP)
+	_, err := os.Stat(config.YTDLP_BIN)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return "", loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, "YTDLP is missing")
@@ -26,7 +24,7 @@ func GetVersion() (string, error) {
 		return "", loggers.MTaskLog(config.ERROR_LOG_FILE_PATH, true, "Could not access YTDLP")
 	}
 
-	cmd := exec.Command(YTDLP, commands.YTDLP_FLAGS.VERSION)
+	cmd := exec.Command(config.YTDLP_BIN, commands.YTDLP_FLAGS.VERSION)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return "", fmt.Errorf("could not get yt-dlp version: %w", err)
@@ -46,7 +44,7 @@ func Run() {
 }
 
 func Download(args []string) error {
-	cmd := exec.Command(YTDLP, args...)
+	cmd := exec.Command(config.YTDLP_BIN, args...)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -63,7 +61,7 @@ func Download(args []string) error {
 }
 
 func UpdateInternally(args []string) error {
-	cmd := exec.Command(YTDLP, args...)
+	cmd := exec.Command(config.YTDLP_BIN, args...)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
