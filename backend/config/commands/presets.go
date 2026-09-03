@@ -24,6 +24,13 @@ type flags struct {
 	OUTPUT      string
 }
 
+
+type inputOptions struct {
+	VIDEO string
+	AUDIO string
+	RESOLUTION int
+}
+
 var YTDLP_PRESETS = presets{
 
 	VIDEO_1080: "bestvideo[height<=1080]+bestaudio",
@@ -46,4 +53,9 @@ var YTDLP_FLAGS = flags{
 	FORMAT_SORT: "--format-sort",
 
 	OUTPUT: "--output",
+}
+
+var IMPUT_OPTIONS = inputOptions{
+	VIDEO: "video",
+	AUDIO: "audio",
 }

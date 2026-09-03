@@ -12,7 +12,7 @@ func BuildDownloadCommand(req models.DownloadRequestModel) []string {
 
 	args = append(args, req.URL)
 	switch req.Format {
-	case "Video":
+	case "Video", "video":
 		args = append(args, commands.YTDLP_FLAGS.FORMAT)
 
 		switch req.Resolution {
@@ -24,7 +24,7 @@ func BuildDownloadCommand(req models.DownloadRequestModel) []string {
 			args = append(args, errors.UserSide.MATCH_NOT_FOUND)
 		}
 
-	case "Audio":
+	case "Audio", "audio":
 		args = append(args,
 			commands.YTDLP_FLAGS.AUDIO_EXTRACT,
 			commands.YTDLP_FLAGS.AUDIO_EXTRACT,

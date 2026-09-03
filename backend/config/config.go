@@ -5,10 +5,9 @@ import (
 	"ripflux/config/paths"
 )
 
-const (
-	VIDEO = "Video"  
-)
-
+type CONFIG struct {
+	FLAGS []string
+}
 
 func logPathBuidler(logFileName string) string {
 

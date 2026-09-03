@@ -5,6 +5,7 @@ type userErrors struct {
 }
 
 type backendErrors struct {
+	
 }
 
 var UserSide = userErrors{

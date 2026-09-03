@@ -27,5 +27,8 @@
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "protobuf.externalLinter.enabled": true,
+  "protobuf.externalLinter.linter": "buf",
+  "protobuf.externalLinter.bufPath": "c:\\Users\\xianyx\\AppData\\Roaming\\Code\\User\\globalStorage\\drblury.protobuf-vsc\\bin\\buf.exe"
 }

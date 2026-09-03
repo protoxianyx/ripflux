@@ -11,7 +11,7 @@ import (
 
 	// "ripflux/core/server"
 
-	"ripflux/utils/adapters"
+	"ripflux/core/adapters"
 	// "ripflux/utils/adapters/ytdlpexe"
 	"ripflux/utils/loggers"
 	packagemanager "ripflux/utils/package"
