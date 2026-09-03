@@ -1,6 +1,6 @@
 package core
 
-import "ripflux/utils/adapters"
+import "ripflux/core/adapters"
 
 func Downloader(args []string) error {
 
