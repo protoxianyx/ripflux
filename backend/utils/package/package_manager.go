@@ -74,7 +74,7 @@ func getLatestReleaseInfo() DownloadProps {
 
 	for _, asset := range release.Assets {
 
-		if asset.Name == config.YTDLP_BIN {
+		if asset.Name == config.ConstVars.YTDLP {
 			downloadProps.downloadURL = asset.BrowserDownloadURL
 			downloadProps.latestVersion = release.TagName
 			break

@@ -16,9 +16,19 @@ func logPathBuidler(logFileName string) string {
 	return logPath
 }
 
+type constVars struct {
+	YTDLP string
+}
+
+var ConstVars = constVars{
+	// TEMP_OUTPUT: "temp_output",
+	YTDLP: "yt-dlp.exe",
+	// INSTALLER_LOG_FILE string = "installer.log"
+}
+
 var OUTPUT_TEMPLATE_PATH string = filepath.Join(paths.TMP_FOLDER, "%(title)s.%(ext)s")
 var OUTPUT_TMP_PATH string = filepath.Join(".", paths.PATH_GO_BACK, paths.TMP_FOLDER, "%(title)s.%(ext)s")
-var YTDLP_BIN string = filepath.Join(paths.BIN_DIR, paths.ConstVars.YTDLP)
+var YTDLP_BIN string = filepath.Join(paths.BIN_DIR, ConstVars.YTDLP)
 
 var COMBINED_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.COMBINED_LOGS)
 var INPUT_LOG_FILE_PATH string = logPathBuidler(paths.LogFiles.INPUT_LOG)
