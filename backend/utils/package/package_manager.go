@@ -113,4 +113,5 @@ func downloadFile(downloadURL string) {
 	bytesWritten, err := io.Copy(file, resp.Body)
 
 	fmt.Println("Downloaded", bytesWritten, "bytes")
+	
 }
