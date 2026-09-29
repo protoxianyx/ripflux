@@ -106,11 +106,13 @@ func ServerStart() {
 
 	router.Use(cors.Default())
 
-	router.POST("/download", downloadHandler)
 	router.GET("/version", versionHandler)
-	router.POST("/latestVersion", updaterHandler)
 	router.GET("/latestVersionInfo", latestVersionInfo)
-
+	
+	router.POST("/download", downloadHandler)
+	router.POST("/latestVersion", updaterHandler)
+	router.POST("/clearTmp", clearTmpHandler)
+	
 	router.Run(":8080")
 }
 
