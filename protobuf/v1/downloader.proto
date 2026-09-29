@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package downloader;
+package protobuf.v1;
 
-option go_package = "ripflux/gen/downloader";
+option go_package = "ripflux/utils/gen/downloader/v1;downloaderv1";
 
 // buf:lint:ignore SERVICE_SUFFIX
-service Downloader {
+service DownloaderService {
   rpc Download(DownloadRequest) returns (DownloadResponse);
   rpc GetVersion(GetVersionRequest) returns (GetVersionResponse);
 }
