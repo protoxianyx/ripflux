@@ -27,7 +27,7 @@ func BuildDownloadCommand(req models.DownloadRequestModel) []string {
 	case "Audio", "audio":
 		args = append(args,
 			commands.YTDLP_FLAGS.AUDIO_EXTRACT,
-			commands.YTDLP_FLAGS.AUDIO_EXTRACT,
+			commands.YTDLP_FLAGS.AUDIO_FORMAT,
 			commands.YTDLP_PRESETS.MP3)
 	}
 

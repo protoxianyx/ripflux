@@ -92,6 +92,8 @@ func latestVersionInfo(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
+
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -108,11 +110,11 @@ func ServerStart() {
 
 	router.GET("/version", versionHandler)
 	router.GET("/latestVersionInfo", latestVersionInfo)
-	
+
 	router.POST("/download", downloadHandler)
 	router.POST("/latestVersion", updaterHandler)
 	router.POST("/clearTmp", clearTmpHandler)
-	
+
 	router.Run(":8080")
 }
 

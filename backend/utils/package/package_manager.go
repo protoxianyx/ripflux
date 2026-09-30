@@ -103,8 +103,8 @@ func downloadFile(downloadURL string) {
 	}
 	defer resp.Body.Close()
 
-	ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_BIN)
-	file, err := os.Create(ytdlp_path)
+	// ytdlp_path := filepath.Join(paths.BIN_DIR, config.YTDLP_BIN)
+	file, err := os.Create(config.YTDLP_BIN)
 	if err != nil {
 		return
 	}
