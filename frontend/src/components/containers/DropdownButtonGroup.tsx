@@ -25,14 +25,20 @@ export const DropdownButtonGroup = () => {
         />
         <DropdownMenuContent>
           <DropdownMenuGroup>
-            <DropdownMenuLabel>Utils</DropdownMenuLabel>
+            <DropdownMenuLabel>Utilities</DropdownMenuLabel>
 
             <DropdownMenuItem
               onClick={() => {
                 void clearTmp().catch((error) => console.error(error))
               }}
             >
-              Clear Tmp
+              Clear Tmp Folder
+            </DropdownMenuItem>
+
+            <DropdownMenuLabel>Settings</DropdownMenuLabel>
+
+            <DropdownMenuItem>
+              <a href="/settingsPage">Settings</a>
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

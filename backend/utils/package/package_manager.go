@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"io"
 	"os"
-	"path/filepath"
+	// "path/filepath"
 
 	"ripflux/config"
-	"ripflux/config/paths"
+	// "ripflux/config/paths"
 	"ripflux/utils/loggers"
 
 	"fmt"
