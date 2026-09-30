@@ -1,0 +1,12 @@
+[project]
+name = "ripflux-python"
+version = "0.1.0"
+description = "Ripflux Python backend worker for yt-dlp"
+readme = "readme.md"
+requires-python = ">=3.14"
+dependencies = [
+    "yt-dlp>=2026.01.01",
+    "grpcio>=1.83.0",
+    "grpcio-tools>=1.83.0",
+    "protobuf>=5.0.0",
+]

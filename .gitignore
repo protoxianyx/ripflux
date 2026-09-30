@@ -1,5 +1,9 @@
-*.exe
-*.d
-*.pdb
+*.exe 
+*.mp4
+*.mp3
+*.mkv
+*.webm
+
+*.exe~
 
 **/target

@@ -1,1 +1,1 @@
-rewrite in rust
+make wails + capacitor happen

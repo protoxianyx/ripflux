@@ -3,22 +3,56 @@ import {
   getVerison,
   installLatestVersion,
 } from "@/api/version"
-// import { useState } from "react"
+
 import { Button } from "./ui/button"
 import { toast } from "./ui/toast"
 import { ButtonGroup } from "./ui/button-group"
+import { AlertBox } from "./AlertBox"
+import { useEffect, useState } from "react"
 
 export default function GetVersionButtonGroup() {
-  // const [version, setVersion] = useState<string | null>(null)
+  // const [version, setVersion] = useState("")
+  const [alertTitle, setAlertTitle] = useState("")
+  const [alertDescription, setAlertDescription] = useState<React.ReactNode>("")
+  // const [latestVersion, setLatestVersion] = useState("")
+
+  useEffect(() => {
+    if (!alertTitle) return
+
+    const timeoutId = window.setTimeout(() => {
+      setAlertTitle("")
+      setAlertDescription("")
+    }, 5000)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [alertTitle, alertDescription])
 
   function versionToast(version: string, latestVerison: string) {
-    const description: string = `Current Version: ${version} \n Latest Version: ${latestVerison}`
+    // const description: string = `Current Version: ${version} \n Latest Version: ${latestVerison}`
 
     toast.add({
       title: "Core Version",
-      description: description,
+      description: (
+        <span className="space-y-1">
+          <span className="flex justify-between gap-6">
+            <span>
+              Current Version: <strong>{version}</strong>
+            </span>
+          </span>
+
+          <span className="flex justify-between gap-6">
+            <span>
+              Latest version: <strong>{latestVerison}</strong>
+            </span>
+          </span>
+        </span>
+      ),
       actionProps: {
-        children: "Install Latest Verison",
+        children: (
+          <span className="flex justify-between space-y-1">
+            Install Latest Version
+          </span>
+        ),
         onClick() {
           handleUpdater()
         },
@@ -47,26 +81,47 @@ export default function GetVersionButtonGroup() {
   }
 
   async function showLatestVerison() {
-    const latestVerison = await getLatestVersionInfo()
+    try {
+      const latestVerisonResult = await getLatestVersionInfo()
+      // setLatestVersion(latestVerisonResult.latestVersionInfo)
+      setAlertTitle("Fetched Latest Verison")
+      setAlertDescription(
+        <div className="space-y-1">
+          <div className="flex justify-between gap-6">
+            <span>
+              Current Version: <strong>{"Yet To be implimented"}</strong>
+            </span>
+          </div>
 
-    toast.add({
-      title: "Latest Version: ",
-      description: latestVerison.latestVersionInfo,
-    })
+          <div className="flex justify-between gap-6">
+            <span>
+              Latest version:{" "}
+              <strong>{latestVerisonResult.latestVersionInfo}</strong>
+            </span>
+          </div>
+        </div>
+      )
+    } catch {
+      setAlertTitle("Version Error")
+      setAlertDescription("Could not fetch latest version")
+    }
   }
 
   return (
-    <div className="absolute top-6 right-6">
-      {/* {version && <span className="text-sm">{version}</span>} */}
+    <div>
       <ButtonGroup>
         <Button type="button" onClick={handleClick}>
           Get Version
         </Button>
         <Button type="button" onClick={showLatestVerison}>
-          {" "}
           Check For Latest Version
         </Button>
       </ButtonGroup>
+      {alertTitle && (
+        <div className="fixed right-6 bottom-4 z-50 w-[min(24rem,calc(100vw-3rem))]">
+          <AlertBox title={alertTitle} description={alertDescription} />
+        </div>
+      )}
     </div>
   )
 }
