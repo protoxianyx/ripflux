@@ -65,12 +65,12 @@ export default function DownloadForm() {
           className="h-14 rounded-md px-5 text-lg shadow-lg"
         />
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <Select
           value={format}
           onValueChange={(value) => value && setFormat(value)}
         >
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder="Format" />
           </SelectTrigger>
 
