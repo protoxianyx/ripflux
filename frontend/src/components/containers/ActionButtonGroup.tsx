@@ -1,19 +1,28 @@
 import React from "react"
 import GetVersionButtonGroup from "../GetVersionButtonGroup"
 import { ButtonGroup } from "../ui/button-group"
-import { ChangeModeButtonGroup } from "../ChangeModeButtonGroup"
 import { DropdownButtonGroup } from "./DropdownButtonGroup"
+import { buttonVariants } from "../ui/button"
 
-const ActionButtonGroup = () => {
+
+type ChangeModeButtonGroupProps = {
+  href: string
+  label: string
+}
+
+const ActionButtonGroup = ({ href, label }: ChangeModeButtonGroupProps) => {
   return (
     <div className="absolute top-6 right-6">
       <ButtonGroup>
         <GetVersionButtonGroup />
-        <ChangeModeButtonGroup />
+        <ButtonGroup className="hidden sm:flex">
+          <a href={href} className={buttonVariants()}>
+            {label}
+          </a>
+        </ButtonGroup>
         <DropdownButtonGroup />
       </ButtonGroup>
     </div>
-    
   )
 }
 

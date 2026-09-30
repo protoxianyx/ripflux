@@ -8,13 +8,24 @@ import { Button } from "./ui/button"
 import { toast } from "./ui/toast"
 import { ButtonGroup } from "./ui/button-group"
 import { AlertBox } from "./AlertBox"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function GetVersionButtonGroup() {
   // const [version, setVersion] = useState("")
   const [alertTitle, setAlertTitle] = useState("")
   const [alertDescription, setAlertDescription] = useState<React.ReactNode>("")
   // const [latestVersion, setLatestVersion] = useState("")
+
+  useEffect(() => {
+    if (!alertTitle) return
+
+    const timeoutId = window.setTimeout(() => {
+      setAlertTitle("")
+      setAlertDescription("")
+    }, 5000)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [alertTitle, alertDescription])
 
   function versionToast(version: string, latestVerison: string) {
     // const description: string = `Current Version: ${version} \n Latest Version: ${latestVerison}`
@@ -94,19 +105,10 @@ export default function GetVersionButtonGroup() {
       setAlertTitle("Version Error")
       setAlertDescription("Could not fetch latest version")
     }
-
-    // toast.add({
-    //   title: "Latest Version: ",
-    //   description: latestVerison.latestVersionInfo,
-    // })
-
-    // const alertTitle = `Fetched Latest Version`
-    // const alertDescription = `Latest Version: ${latestVerison}`
   }
 
   return (
     <div>
-      {/* {version && <span className="text-sm">{version}</span>} */}
       <ButtonGroup>
         <Button type="button" onClick={handleClick}>
           Get Version

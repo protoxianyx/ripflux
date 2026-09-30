@@ -1,9 +1,21 @@
 ---
+import AdvancedDownloadForm from "@/components/AdvancedDownloadForm";
+import ActionButtonGroup from "@/components/containers/ActionButtonGroup";
+import { Toaster } from "@/components/ui/toast";
 import Layout from "@/layouts/main.astro"
 ---
 
 <Layout>
-  <main>
-    <h1>this is advui page</h1>
+  <main
+    class="flex min-h-screen items-center justify-center bg-background text-foreground"
+  >
+    <!-- <GetVersionButtonGroup client:load /> -->
+     <ActionButtonGroup href="/" label="Simple Mode" client:load/>
+    <Toaster client:load />
+    <div class="w-full max-w-3xl space-y-6">
+      <h1 class="text-center text-5xl font-bold">RIPFLUX</h1>
+
+      <AdvancedDownloadForm client:load/>
+    </div>
   </main>
 </Layout>

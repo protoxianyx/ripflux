@@ -4,4 +4,5 @@ export const APIRoutes = {
   latestVersionInfo: "/latestVersionInfo",
   download: "/download",
   clearTmp : "/clearTmp",
+  AdvancedDownloadPage : "/advanceDownloadPage"
 } as const
