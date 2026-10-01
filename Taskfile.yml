@@ -38,5 +38,5 @@ tasks:
       - cd bin/
   wails:
     cmds:
-      - go run .
+      - wails3 dev
     dir: "{{.DESKTOP_DIRECTORY}}"
