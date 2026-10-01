@@ -9,12 +9,17 @@ import (
 // DownloadService exposes methods directly to the Astro/React frontend
 type DownloadService struct{}
 
-func (d *DownloadService) Greet(name string) string {
-	return "Hello from Wails 3, " + name
+func (d *DownloadService) ChooseDownloadFolder() (string, error) {
+	return application.Get().Dialog.OpenFile().
+		CanChooseFiles(false).
+		CanChooseDirectories(true).
+		CanCreateDirectories(true).
+		SetTitle("Choose Download folder").
+		PromptForSingleSelection()
 }
 
 func main() {
-	// 1. Initialize the Wails v3 Application
+	
 	app := application.New(application.Options{
 		Name:        "Ripflux",
 		Description: "Ripflux Media Downloader",
@@ -23,7 +28,7 @@ func main() {
 		},
 	})
 
-	// 2. Create the main application window pointing to Astro dev server
+	
 	app.Window.NewWithOptions(application.WebviewWindowOptions{
 		Title:  "Ripflux",
 		Width:  950,
@@ -31,7 +36,9 @@ func main() {
 		URL:    "http://localhost:4321", // In dev mode, points to Astro
 	})
 
-	// 3. Run the desktop application
+	application.NewService(&DownloadService{})
+
+	
 	err := app.Run()
 	if err != nil {
 		log.Fatal(err)
