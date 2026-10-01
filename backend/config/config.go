@@ -2,7 +2,7 @@ package config
 
 import (
 	"path/filepath"
-	
+	"ripflux/config/paths"
 )
 
 type CONFIG struct {
